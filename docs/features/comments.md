@@ -6,7 +6,7 @@ tags:
 
 Quartz also has the ability to hook into various providers to enable readers to leave comments on your site.
 
-![[giscus-example.png]]
+![[public/images/giscus-example.png]]
 
 As of today, only [Giscus](https://giscus.app/) is supported out of the box but PRs to support other providers are welcome!
 
@@ -22,13 +22,13 @@ First, make sure that the [[setting up your GitHub repository|GitHub]] repositor
 
 Then, use the [Giscus site](https://giscus.app/#repository) to figure out what your `repoId` and `categoryId` should be. Make sure you select `Announcements` for the Discussion category.
 
-![[giscus-repo.png]]
+![[public/images/giscus-repo.png]]
 
-![[giscus-discussion.png]]
+![[public/images/giscus-discussion.png]]
 
 After entering both your repository and selecting the discussion category, Giscus will compute some IDs that you'll need to provide back to Quartz. You won't need to manually add the script yourself as Quartz will handle that part for you but will need these values in the next step!
 
-![[giscus-results.png]]
+![[public/images/giscus-results.png]]
 
 Finally, in `quartz.layout.ts`, edit the `afterBody` field of `sharedPageComponents` to include the following options but with the values you got from above:
 

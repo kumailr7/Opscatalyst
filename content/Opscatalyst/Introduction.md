@@ -1,7 +1,5 @@
 ---
-title: "Introduction"
+title: Introduction
 draft: false
-tags: 
-  -
+tags:
 ---
-This is an introduction page
