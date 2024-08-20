@@ -1,10 +1,3 @@
----
-title: <% tp.file.title %>
-draft: 
-tags:
-  - Kubernetes
----
----
 **Author - Kumail Rizvi**
 ___
 
