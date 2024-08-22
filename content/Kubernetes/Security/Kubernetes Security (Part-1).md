@@ -150,7 +150,7 @@ deployment "awesome-cats-deployment" successfully rolled out
 we can check by doing curl of the URL 
 
 ``` console
-$ curl http://localhost:8080/                      
+$ curl https://kumailr7.github.io/Opscatalyst//                      
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="UTF-8">

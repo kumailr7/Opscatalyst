@@ -21,27 +21,27 @@ Please feel free to [provide feedback](https://github.com/kumailr7/Opscatalyst/i
 
 ## 🎓 DevOps Journey
 ---
-- [Docker](http://localhost:8080/tags/docker)
-- [Kubernetes](http://localhost:8080/tags/kubernetes)
+- [Docker](https://kumailr7.github.io/Opscatalyst/tags/docker)
+- [Kubernetes](https://kumailr7.github.io/Opscatalyst/tags/kubernetes)
 
 ## ☁️ Cloud-Native
 ---
-- [Proxy](http://localhost:8080/Cloud-Native/Proxy/)
+- [Proxy](https://kumailr7.github.io/Opscatalyst/Cloud-Native/Proxy/)
 
 ## 🖥️ Cloud Computing
 ---
-- [Amazon Web Services](http://localhost:8080/tags/aws)
+- [Amazon Web Services](https://kumailr7.github.io/Opscatalyst/tags/aws)
 
 ## 🏭 System Design
 ---
-- [Basis](http://localhost:8080/System-Design/)
-- [Basic Proxy](http://localhost:8080/System-Design/Proxy/)
-- [Load Balancer](http://localhost:8080/System-Design/Load-Balancers/)
-- [Database](http://localhost:8080/System-Design/Database/)
-- [Cache](http://localhost:8080/System-Design/Cache/)
-- [Compute](http://localhost:8080/System-Design/Compute/)
-- [Monitoring](http://localhost:8080/System-Design/Monitoring/)
-- [Architecture](http://localhost:8080/System-Design/Architectures/)
+- [Basis](https://kumailr7.github.io/Opscatalyst/System-Design/)
+- [Basic Proxy](https://kumailr7.github.io/Opscatalyst/System-Design/Proxy/)
+- [Load Balancer](https://kumailr7.github.io/Opscatalyst/System-Design/Load-Balancers/)
+- [Database](https://kumailr7.github.io/Opscatalyst/System-Design/Database/)
+- [Cache](https://kumailr7.github.io/Opscatalyst/System-Design/Cache/)
+- [Compute](https://kumailr7.github.io/Opscatalyst/System-Design/Compute/)
+- [Monitoring](https://kumailr7.github.io/Opscatalyst/System-Design/Monitoring/)
+- [Architecture](https://kumailr7.github.io/Opscatalyst/System-Design/Architectures/)
 
 
 
