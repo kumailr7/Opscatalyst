@@ -19,9 +19,9 @@ description:
 
 A scenario where an attacker got access of your kuberentes cluster via token or kube config file 
 
-after gaining access of the cluster , he will try to exploit the applications and serviced deployed on it 
+After gaining access of the cluster ,the hacker will try to exploit the applications and serviced deployed on it 
 
-lets understand the attack by an example
+Lets understand the attack by an example
 
 1. lets say your application running using an image ghcr.io/datosh/demo-token/demo-app:latest
     this image is getting used in `deployment.yaml` 
@@ -52,7 +52,7 @@ spec:
 ```
 
 
-also we have `service.yaml`
+Also we have `service.yaml`
 
 ```yaml
 apiVersion: v1
@@ -81,16 +81,16 @@ kubectl logs -f deployments/awesome-cats-deployment
 
 ```
 
-3. Now once the attacker got inside of the cluster , now he will inject the container with malicious script or just an echo command to show that he got into the cluster and can increase the blast radius of the attack .
+3. Now once the attacker got inside of the cluster ,now he will inject the container with malicious script or just an echo command to show that he got into the cluster and can increase the blast radius of the attack .
 
-4. Now he will check for the image been used in the deployment yaml , using a simple describe command 
+4. Now he will check for the image been used in the deployment yaml ,using a simple describe command 
 
 ```console
 $ kubectl describe deployments awesome-cats-deployment | grep "Image"
 Image:        ghcr.io/datosh/demo-token/demo-app:latest
 ```
 
-5.  Here he can easily get the image name being used in the deployment , he will get the `SHA` which is the image digest , for example it would be something like this 
+5.  Here he can easily get the image name being used in the deployment ,the attacker will get the `SHA` which is the image digest , for example it would be something like this 
 
 ```
 crane digest ghcr.io/datosh/demo-token/demo-app:latest
@@ -145,9 +145,9 @@ $ kubectl rollout  deploy awesome-cats-deployment
 deployment "awesome-cats-deployment" successfully rolled out
 ```
 
-12. After successfully rolling out the deployment , even though the application from frontend side will be running as expected 
+12. After successfully rolling out the deployment ,even though the application from frontend side will be running as expected 
 
-we can check by doing curl of the URL 
+We can check by doing curl of the URL 
 
 ``` console
 $ curl https://kumailr7.github.io/Opscatalyst///                      
@@ -171,7 +171,7 @@ $ curl https://kumailr7.github.io/Opscatalyst///
 
 ```
 
-13. But the real attack took place behind the scene , if we check the logs of the deployment we will see it 
+13. But the real attack took place behind the scene ,if we check the logs of the deployment we will see it 
 
 ```
 $ kubectl logs -f deployments/awesome-cats-deployment
@@ -184,16 +184,16 @@ Found 3 pods, using pod/awesome-cats-deployment-b7dd856cd-9nfn2
 
 Here we can see the attacker was able to successfully run the attack and infect the container 
 
-15. Even the image name with tag is same as before , we will not able to find the find difference looking at the image tag , so can we see the difference ? 
+15. Even the image name with tag is same as before ,we will not able to find the find difference looking at the image tag ,so can we see the difference ? 
 
-16.  as discussed earlier about `image digest` lets check it 
+16.  As discussed earlier about `image digest` lets check it 
 
 ```
 $ docker inspect --format='{{index .RepoDigests 0}}' ghcr.io/datosh/demo-token/demo-app:latest 
 ghcr.io/datosh/demo-token/demo-app@sha256:3ee5995cd4002a753e095a23e214da9b0e155a3e331437c9568ff2f4009d92b
 ```
 
-If you have noticed something the image digest is changed , so we can verify that the SHA has been tampered and the image is been manipulated
+If you have noticed something the image digest is changed ,so we can verify that the SHA has been tampered and the image is been manipulated
 
 ---
 
@@ -211,7 +211,7 @@ If you have noticed something the image digest is changed , so we can verify tha
   -  Do not use `latest` or even version  tags 
 2.  Always do a container singing 
 3. implement rotation of short lived secrets regularly
-4.  Use Image Scanning tools like Docker Scout , Trivy or Synk to scan image for vulnerabilities  
+4.  Use Image Scanning tools like Docker Scout ,Trivy or Synk to scan image for vulnerabilities  
 
 By following these best practices  we can prevent attacker to infect container and also save guard applications  
 

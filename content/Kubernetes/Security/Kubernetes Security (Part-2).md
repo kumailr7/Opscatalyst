@@ -19,7 +19,7 @@ description:
 
 In this documentation we will see how combination of an application vulnerability and a misconfiguration can allow an attacker to spread the blast radius of an attack on a Kubernetes cluster using common default configurations.
 
-Before proceeding with Kubernetes Security Part 2, it's recommended to review [[Kubernetes Security (Part-1)| Kubernetes Security-1]] ensure you have a solid understanding of the foundational concepts.
+Before proceeding with Kubernetes Security Part 2,it's recommended to review [[Kubernetes Security (Part-1)| Kubernetes Security-1]] ensure you have a solid understanding of the foundational concepts.
 
 
 > [!NOTE] 
@@ -27,13 +27,13 @@ Before proceeding with Kubernetes Security Part 2, it's recommended to review [[
 
 ### Setting up the scene
 
-Imagine a hacker,  have found a vulnerable application on the Internet which is hosted on your cluster . He don't know much else about it other than the fact that it has a particular vulnerability. In this documentation we will use a mock-up application that has a remote control command execution **(RCE) vulnerability** which is going to allow us to run commands directly on the server that's running the web application. 
+Imagine a hacker, have found a vulnerable application on the Internet which is hosted on your cluster . He don't know much else about it other than the fact that it has a particular vulnerability. In this documentation we will use a mock-up application that has a remote control command execution **(RCE) vulnerability** which is going to allow us to run commands directly on the server that's running the web application. 
 
-Here we will use a simple Flask app that has a simulated RCE, but these kinds of vulnerabilities do exist in the wild such as in middleware, libraries, and container images. This kind of vulnerability allows an attacker to pass malformed or specifically crafted HTTP requests to allow them to run commands directly on the target server.
+Here we will use a simple Flask app that has a simulated RCE,but these kinds of vulnerabilities do exist in the wild such as in middleware,libraries, and container images. This kind of vulnerability allows an attacker to pass malformed or specifically crafted HTTP requests to allow them to run commands directly on the target server.
 
 Lets see a demo and understand the attack 
 
-1. we would have a application deployment named `webadmin` ,  in a isolated namespace `dev` with its own service and this service is exposed via a ingress controller . Here we are replicating the attack on a`kind` cluster 
+1. we would have a application deployment named `webadmin` ,in a isolated namespace `dev` with its own service and this service is exposed via a ingress controller . Here we are replicating the attack on a`kind` cluster 
 
 `webadmin-deployment.yaml`
 
@@ -109,12 +109,12 @@ spec:
 
 1. Open the vulnerable application in your browser at [http://localhost/webadmin](http://localhost/webadmin) The vulnerability can be exploited by passing a `cmd` URL parameter. For example, the following will execute a `hostname` command and show the console output on the returned page: [http://localhost/webadmin?cmd=hostname](http://localhost/webadmin?cmd=hostname)
 
-![[IMAGE 20240712205046.png]]
+![[KS-2-24-1.png]]
 
 
 2. Ok, that proves that our RCE is working so now let's use it to get some more interesting information. Change the `cmd` parameter to `env` to print out the processes' environment variables: [http://localhost/webadmin?cmd=env](http://localhost/webadmin?cmd=env)
 
-![[IMAGE 20240712205128.png]]
+![[KS-2-24-2.png]]
 
 3. Base on the various variable names starting with `KUBERNETES`, it's pretty safe to assume this process is running in a container, on a Kubernetes cluster. 
 
@@ -124,7 +124,7 @@ spec:
 
 6. The next bit of information we want to find out is the IP address of the pod we are running in so let's run `hostname -i`: [http://localhost/webadmin?cmd=hostname%20-i](http://localhost/webadmin?cmd=hostname%20-i)
 
-![[IMAGE 20240712210007.png]]
+![[KS-2-24-3.png]]
 
 ### Checkpoint
 
@@ -140,13 +140,13 @@ spec:
 
 Here is a Visual Representation:
 
-![[IMAGE 20240712212104.png]]
+![[KS-2-24-4.png]]
 
 Also we can tracker the exploit range with a graph here 
 
 ### Timeline of Doom
 
-![[IMAGE 20240712210730.png]]
+![[KS-2-24-10.png]]
 
 ---
 
@@ -156,19 +156,21 @@ Also we can tracker the exploit range with a graph here
 
 [http://localhost/webadmin?cmd=cat%20/var/run/secrets/kubernetes.io/serviceaccount/token](http://localhost/webadmin?cmd=cat%20/var/run/secrets/kubernetes.io/serviceaccount/token)
 
-![[IMAGE 20240712210913.png]]
+![[KS-2-24-6.png]]
+
 
 We now have the Pod token, so we have some credentials to play with. This can be used to help us explore other places in the cluster. 
 
 2. It's also worth noting that even if this was just a **directory traversal exploit**, much of what we found—including this token—could also have been discovered. Even the environment variables are visible via the `/proc` file system. For example, printing out the contents of `/proc/self/environ` would give us the equivilent of running `env`: [http://localhost/webadmin?cmd=cat%20/proc/self/environ](http://localhost/webadmin?cmd=cat%20/proc/self/environ)
 
-![[IMAGE 20240712211009.png]]
+![[KS-2-24-7.png]]
 
 Now we got into the `.env` or `envorinmental variables`  of the code and other sensitive creds such as endpoint of cluster 
 
 2. Lets see if we can have internet access via this RCE , Let's see if we have `curl` available: [http://localhost/webadmin?cmd=curl%20https://google.com](http://localhost/webadmin?cmd=curl%20https://google.com)
 
-![[IMAGE 20240712211329.png]]
+![[KS-2-24-8.png]]
+
 
 Volia ! Successfully !! 
 
@@ -180,7 +182,7 @@ Volia ! Successfully !!
 
 The URL to open (replace `10.96.0.1` with your `KUBERNETES_PORT`): [http://localhost/webadmin?cmd=curl%20--cacert%20/var/run/secrets/kubernetes.io/serviceaccount/ca.crt%20-H%20%22Authorization:%20Bearer%20$(cat%20/var/run/secrets/kubernetes.io/serviceaccount/token)%22%20https://10.96.0.1/api/v1/namespaces/default/endpoints](http://localhost/webadmin?cmd=curl%20--cacert%20/var/run/secrets/kubernetes.io/serviceaccount/ca.crt%20-H%20%22Authorization:%20Bearer%20$(cat%20/var/run/secrets/kubernetes.io/serviceaccount/token)%22%20https://10.96.0.1/api/v1/namespaces/default/endpoints)
 
-![[IMAGE 20240712211735.png]]
+![[KS-2-24-9.png]]
 
 This command succeeds, and notice the section:
 
@@ -204,7 +206,7 @@ This command succeeds, and notice the section:
 
 - The api-server returned Endpoint information exposing its external IP _(although our workshop Kind cluster obscures this in practice)_
 
-![[public/image-1.png]]
+![[KS-2-24-5.png]]
 
 Lets see the timeline again 
 
@@ -212,7 +214,7 @@ Lets see the timeline again
 
 Updated progress toward total ownership of the target cluster.
 
-![[IMAGE 20240712212224.png]]
+![[KS-2-24-11.png]]
 
 ---
 
@@ -283,13 +285,13 @@ Here we see the "all resources" wildcard (`*.*`) with the set of all verbs meani
 - The account for the token gathered has limited access in the `default` Namespace
 - The account is from a Namespace titled `dev` where it has broad access.
 
-![[IMAGE 20240712214236.png]]
+![[KS-2-24-12.png]]
 
 #### Timeline of Doom
 
 Updated progress toward total ownership of the target cluster.
 
-![[IMAGE 20240712214300.png]]
+![[KS-2-24-13.png]]
 
 ---
 
@@ -434,11 +436,11 @@ This is because the `securityContext` settings in the Pod manifest are set to�
 - The application container is not running with a `readOnlyRootFilesystem:true` so it's mutable
 - There are PSA Restricted configurations in place in the `secure` Namespace that restrict root users and privileged mode containers/pods as well as privilege escalation via SUID
 
-![[IMAGE 20240713020646.png]]
+![[KS-2-24-14.png]]
 
 #### Timeline of Doom
 
-![[IMAGE 20240713020706.png]]
+![[KS-2-24-15.png]]
 
 ---
 
