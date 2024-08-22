@@ -37,16 +37,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // Create a new script element with the updated data-theme attribute
   const newScript = document.createElement('script');
   newScript.src = 'https://giscus.app/client.js';
-  newScript.setAttribute('data-repo', 'xy-241/CS-Notes');
-  newScript.setAttribute('data-repo-id', 'R_kgDOK0yNDg');
+  newScript.setAttribute('data-repo', 'kumailr7/Opscatalyst');
+  newScript.setAttribute('data-repo-id', 'R_kgDOMl4JxQ"');
   newScript.setAttribute('data-category', 'General');
-  newScript.setAttribute('data-category-id', 'DIC_kwDOK0yNDs4CbdOh');
+  newScript.setAttribute('data-category-id', 'DIC_kwDOMl4Jxc4Ch08m');
   newScript.setAttribute('data-mapping', 'pathname');
   newScript.setAttribute('data-strict', '0');
   newScript.setAttribute('data-reactions-enabled', '1');
   newScript.setAttribute('data-emit-metadata', '0');
   newScript.setAttribute('data-input-position', 'top');
-  newScript.setAttribute('data-theme', theme);
+  newScript.setAttribute('data-theme', 'dark');
   newScript.setAttribute('data-lang', 'en');
   newScript.setAttribute('data-loading', 'lazy');
   newScript.setAttribute('crossOrigin', 'anonymous');
