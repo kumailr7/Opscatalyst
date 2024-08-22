@@ -18,6 +18,7 @@ interface Options {
 }
 
 const defaultOptions = (cfg: GlobalConfiguration): Options => ({
+  title: "Recent Updates",
   limit: 3,
   linkToMore: false,
   showTags: true,
@@ -48,7 +49,7 @@ export default ((userOpts?: Partial<Options>) => {
                 <div class="section">
                   <div class="desc">
                     <h3>
-                      <a href={resolveRelative(fileData.slug!, page.slug!)} class="internal">
+                      <a href={resolveRelative(fileData.slug!, page.slug!)} class="internal" >
                         {title}
                       </a>
                     </h3>

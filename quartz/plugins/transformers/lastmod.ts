@@ -48,10 +48,12 @@ export const CreatedModifiedDate: QuartzTransformerPlugin<Partial<Options>> = (u
                 created ||= st.birthtimeMs
                 modified ||= st.mtimeMs
               } else if (source === "frontmatter" && file.data.frontmatter) {
-                created ||= file.data.frontmatter.date as MaybeDate
-                modified ||= file.data.frontmatter.lastmod as MaybeDate
-                modified ||= file.data.frontmatter.updated as MaybeDate
-                modified ||= file.data.frontmatter["last-modified"] as MaybeDate
+                // created ||= file.data.frontmatter.date as MaybeDate
+                created ||= file.data.frontmatter["Creation Date"] as MaybeDate
+                // modified ||= file.data.frontmatter.lastmod as MaybeDate
+                // modified ||= file.data.frontmatter.updated as MaybeDate
+                // modified ||= file.data.frontmatter["last-modified"] as MaybeDate
+                modified ||= file.data.frontmatter["Last Date"] as MaybeDate            
                 published ||= file.data.frontmatter.publishDate as MaybeDate
               } else if (source === "git") {
                 if (!repo) {

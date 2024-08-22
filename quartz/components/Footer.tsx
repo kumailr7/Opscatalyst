@@ -10,12 +10,16 @@ interface Options {
 export default ((opts?: Options) => {
   const Footer: QuartzComponent = ({ displayClass, cfg }: QuartzComponentProps) => {
     const year = new Date().getFullYear()
+    const startYear = 2023
+    const currYear = new Date().getFullYear()
     const links = opts?.links ?? []
     return (
       <footer class={`${displayClass ?? ""}`}>
+        <div class="giscus" style={{ marginTop: "5rem" }}></div>
+        <hr />
         <p>
           {i18n(cfg.locale).components.footer.createdWith}{" "}
-          <a href="https://quartz.jzhao.xyz/">Quartz v{version}</a> © {year}
+          <a href="https://www.linkedin.com/in/kumail-rizvi/">Kumail Rizvi</a>, © {currYear}
         </p>
         <ul>
           {Object.entries(links).map(([text, link]) => (

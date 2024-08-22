@@ -195,6 +195,7 @@ export function renderPage(
   } = components
   const Header = HeaderConstructor()
   const Body = BodyConstructor()
+  
 
   const LeftComponent = (
     <div class="left sidebar">
@@ -228,13 +229,14 @@ export function renderPage(
                   ))}
                 </Header>
                 <div class="popover-hint">
-                  {beforeBody.map((BodyComponent) => (
+                  {slug !== "index" && slug !== "about" && beforeBody.map((BodyComponent) => (
                     <BodyComponent {...componentData} />
                   ))}
                 </div>
               </div>
               <Content {...componentData} />
-              <hr />
+              
+              {/* <hr class="footerHr"/> */}
               <div class="page-footer">
                 {afterBody.map((BodyComponent) => (
                   <BodyComponent {...componentData} />

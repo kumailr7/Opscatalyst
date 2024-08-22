@@ -5,11 +5,10 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [],
+  afterBody: [Component.Comments()],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/jackyzha0/quartz",
-      "Discord Community": "https://discord.gg/cRFFHYye7t",
+      GitHub: "https://github.com/kumailr7/Opscatalyst"
     },
   }),
 }
@@ -19,20 +18,24 @@ export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.Breadcrumbs(),
     Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
+    Component.ContentMeta({showReadingTime:true}),
+    Component.TagList(), 
+    Component.Author(),
   ],
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
-    Component.Darkmode(),
+    Component.MobileOnly(Component.Darkmode()),
+    Component.DesktopOnly(Component.RecentNotes({ linkToMore: "tags/" , limit: 3, showTags: false })),
     Component.DesktopOnly(Component.Explorer()),
   ],
   right: [
-    Component.Graph(),
+    // Component.MobileOnly(Component.Explorer()),
+    Component.DesktopOnly(Component.Darkmode()),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
+    Component.Graph(),
   ],
 }
 
@@ -48,3 +51,16 @@ export const defaultListPageLayout: PageLayout = {
   ],
   right: [],
 }
+
+Component.Explorer({
+  sortFn: (a, b) => {
+    if ((!a.file && !b.file) || (a.file && b.file)) {
+      return a.displayName.localeCompare(b.displayName)
+    }
+    if (a.file && !b.file) {
+      return -1
+    } else {
+      return 1
+    }
+  },
+})

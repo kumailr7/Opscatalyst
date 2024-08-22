@@ -1,9 +1,21 @@
-**Author - Kumail Rizvi**
+---
+Author:
+  - Kumail Rizvi
+Author Profile:
+  - https://linkedin.com/in/kumail-rizvi
+tags:
+  - Kubernetes
+  - Helm
+Creation Date: 2024-08-21T23:52:31
+Last Date: 2024-08-21T23:52:31
+drafts: 
+References: 
+description:
+---
 
-___
 ### Content Index 
 
-- **What are Helm Charts** 
+- **What are Helm Charts**
 - **Example of creating custom helm charts**
 - **Best practices in helm**  
 - **Installation of helm chart** 

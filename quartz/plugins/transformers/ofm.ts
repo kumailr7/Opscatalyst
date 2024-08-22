@@ -8,9 +8,9 @@ import path from "path"
 import { splitAnchor } from "../../util/path"
 import { JSResource } from "../../util/resources"
 // @ts-ignore
-import calloutScript from "../../components/scripts/callout.inline.ts"
+import calloutScript from "../../components/scripts/callout.inline"
 // @ts-ignore
-import checkboxScript from "../../components/scripts/checkbox.inline.ts"
+import checkboxScript from "../../components/scripts/checkbox.inline"
 import { FilePath, pathToRoot, slugTag, slugifyFilePath } from "../../util/path"
 import { toHast } from "mdast-util-to-hast"
 import { toHtml } from "hast-util-to-html"
@@ -57,12 +57,12 @@ const calloutMapping = {
   todo: "todo",
   tip: "tip",
   hint: "tip",
-  important: "tip",
+  // important: "tip",
   success: "success",
   check: "success",
   done: "success",
   question: "question",
-  help: "question",
+  // help: "question",
   faq: "question",
   warning: "warning",
   attention: "warning",
