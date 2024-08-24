@@ -10,7 +10,7 @@ Last Date: 2024-08-16T15:45:16+08:00
 References: 
 description: My Second Brain for Devops related stuff. Zero fluff, short and sweet.
 ---
-![[assets/ninja.jpg|800]]
+![[assets/stake-ninja.jpg|800]]
 
 >[!quote]
 >
