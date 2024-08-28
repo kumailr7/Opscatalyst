@@ -76,7 +76,7 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
     componentResources.afterDOMLoaded.push(popoverScript)
     componentResources.css.push(popoverStyle)
   }
-
+/*
   if (cfg.analytics?.provider === "google") {
     const tagId = cfg.analytics.tagId
     componentResources.afterDOMLoaded.push(`
@@ -172,7 +172,7 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
       document.head.appendChild(cabinScript)
     `)
   }
-
+*/
   if (cfg.enableSPA) {
     componentResources.afterDOMLoaded.push(spaRouterScript)
   } else {

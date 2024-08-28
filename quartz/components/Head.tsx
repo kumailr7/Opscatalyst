@@ -20,7 +20,7 @@ export default (() => {
 
     return (
       <head>
-        <script
+        {/* <script
           src="https://notesss.yxy.ninja/script.js"
           type="text/javascript">
         </script>
@@ -46,7 +46,7 @@ export default (() => {
             });
           `,
         }}
-        />
+        /> */}
 
         {/* <script async src="https://rum.cronitor.io/script.js"></script>
         <script
