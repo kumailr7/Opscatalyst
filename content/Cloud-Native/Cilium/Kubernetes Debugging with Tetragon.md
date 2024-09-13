@@ -15,11 +15,11 @@ References: https://tetragon.io/docs/getting-started/
 description: 
 Gitlab Link: https://gitlab.com/kumailrizvi70/Tetragon-K8s
 ---
-## What is Tetragon?
+## What is Tetragon? 🔍
 
-**Tetragon** is an open-source eBPF-based observability and security tool developed by Cilium. It provides detailed visibility into system-level events and network activity within a Kubernetes cluster. Tetragon can monitor and trace system calls, such as command executions in containers, making it a powerful tool for debugging and security auditing.
+**Tetragon** is an exciting open-source observability and security tool developed by Cilium, powered by eBPF (extended Berkeley Packet Filter) technology. It gives you deep visibility into system-level events and network activity within your Kubernetes cluster. With Tetragon, you can trace system calls, monitor command executions in containers, and gain valuable insights for debugging and security auditing.
 
-## How Can We Use Tetragon in Kubernetes ?
+## How Can We Use Tetragon in Kubernetes ? 🐳
 
 Tetragon allows you to monitor the execution of commands within Kubernetes pods by leveraging eBPF (extended Berkeley Packet Filter) technology. This enables you to trace system calls and gather detailed logs of command execution, which can be crucial for debugging and auditing.
 
@@ -29,7 +29,7 @@ Tetragon allows you to monitor the execution of commands within Kubernetes pods 
 - **Visibility**: Gain insights into what’s happening inside your containers and pods.
 - **Security**: Detect and respond to suspicious activities within your cluster.
 
-## Demo with Tetragon
+## Demo with Tetragon 🚀
 
 Lets see in action how tetragon works in a kuberentes cluster 
 
@@ -39,7 +39,7 @@ Lets see in action how tetragon works in a kuberentes cluster
 - **VirtualBox**: The virtualization software used with Vagrant
 
 **Link to the repository for Vagrant Environment:** [Tetragon-K8s](https://gitlab.com/kumailrizvi70/Tetragon-K8s)
-##### Custom Vagrant box 
+##### Custom Vagrant box 🛠️
 
 - We will use custom vagrant box that would install all the necessary tools like 
    - Minikube 
@@ -62,7 +62,7 @@ To access the vagrant box , run this command
 vagrant ssh
 ```
 
-##### Test the Execution Monitoring
+##### Test the Execution Monitoring 🕵️
 
 At the core of Tetragon is the tracking of all executions in a Kubernetes cluster, virtual machines, and bare metal systems. This creates the foundation that allows Tetragon to attribute all system behavior back to a specific binary and its associated metadata (container, Pod, Node, and cluster).
 
