@@ -104,7 +104,7 @@ The compact execution event contains the event type, the pod name, the binary an
 
 Look for traces of the commands you executed.
 
-### Summary
+## Summary
 
 🎯 **Tetragon**: Dive into the world of eBPF with Tetragon, Cilium’s cutting-edge observability tool.
 
