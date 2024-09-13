@@ -27,7 +27,7 @@ Please feel free to [provide feedback](https://github.com/kumailr7/Opscatalyst/i
 ## ☁️ Cloud-Native
 ---
 - [Proxy](https://kumailr7.github.io/Opscatalyst//Cloud-Native/Proxy/)
-- [Cilium](https://kumailr7.github.io/Opscatalyst/Cloud-Native/Cilium/Kubernetes-Debugging-with-Tetragon)
+- [Cilium](https://kumailr7.github.io/Opscatalyst/Cloud-Native/Cilium/)
 
 ## 🖥️ Cloud Computing
 ---
