@@ -106,9 +106,14 @@ Look for traces of the commands you executed.
 
 ### Summary
 
-- **Tetragon**: eBPF-based observability tool from Cilium.
-- **Setup**: Use Vagrant and VirtualBox to create a VM environment with Minikube, Docker, kubectl, and Helm.
-- **Script**: Automate Minikube setup and installation of Cilium and Tetragon.
-- **Testing**: Deploy a sample application and monitor command executions with Tetragon.
+🎯 **Tetragon**: Dive into the world of eBPF with Tetragon, Cilium’s cutting-edge observability tool.
 
-We have seen how to use tetragon to monitor the commands execution in a kubernetes cluster 
+🏗️ **Setup**: Spin up a VM environment effortlessly using Vagrant and VirtualBox. Our setup includes Minikube, Docker, kubectl, and Helm—all you need to get started!
+
+📜 **Script**: We’ve got you covered with a handy script that automates everything from Minikube setup to installing Cilium and Tetragon.
+
+🚀 **Testing**: Get your hands dirty by deploying a sample app and see Tetragon in action as it tracks command executions within your Kubernetes cluster.
+
+🔍 **Recap**: We’ve explored how Tetragon can be a game-changer for monitoring command execution in Kubernetes. Dive in and see the magic unfold!
+
+---
