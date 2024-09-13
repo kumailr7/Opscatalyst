@@ -13,7 +13,7 @@ DocID: KDT-24
 drafts: 
 References: https://tetragon.io/docs/getting-started/
 description: 
-Gitlab Link:
+Gitlab Link: https://gitlab.com/kumailrizvi70/Tetragon-K8s
 ---
 ## What is Tetragon?
 
@@ -36,8 +36,9 @@ Lets see in action how tetragon works in a kuberentes cluster
 #### Prerequisites
 
 - **Vagrant**: For creating and managing virtualized development environments.
-- **VirtualBox**: The virtualization software used with Vagrant.
+- **VirtualBox**: The virtualization software used with Vagrant
 
+**Link to the repository for Vagrant Environment:** [Tetragon-K8s](https://gitlab.com/kumailrizvi70/Tetragon-K8s)
 ##### Custom Vagrant box 
 
 - We will use custom vagrant box that would install all the necessary tools like 
@@ -70,7 +71,6 @@ Tetragon exposes the execution events over JSON logs and GRPC stream. The user c
 You can target the Tetragon DaemonSet with a `kubectl exec` command
 
 ```shell
-
 kubectl exec -ti -n kube-system ds/tetragon -c tetragon -- tetra getevents -o compact --pods xwing
 ```
 
@@ -82,7 +82,6 @@ The `tetra get-events -o compact` command returns a compact form of the execut
 Now , open another terminal windows access vagrant box and run this command 
 
 ```shell
-
 kubectl exec -ti xwing -- bash -c 'curl https://ebpf.io/applications/#tetragon'
 ```
 
