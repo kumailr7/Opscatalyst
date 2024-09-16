@@ -36,7 +36,7 @@ Let’s jump into the setup process and get your Kubernetes cluster monitored us
 
 - Make sure you have a kubernetes cluster up and running, for this demo we will use K3D you can use minikube, EKS, AKS etc 
 
-- If you dont have a cluster then you can create one by using this Repo :- [K3D Cluster Setup] (https://gitlab.com/kumailrizvi70/k3dclusterops)
+- If you dont have a cluster then you can create one by using this Repo :-  [K3D Cluster Setup](https://gitlab.com/kumailrizvi70/k3dclusterops)
 
 **Step-2:** **Sign Up for Grafana Cloud**
 
