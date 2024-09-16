@@ -18,7 +18,7 @@ Github Link: https://gitlab.com/kumailrizvi70/k3dclusterops
 
 In today's fast-paced cloud-native world, ensuring the performance, availability, and security of your Kubernetes clusters is essential for delivering seamless services. Kubernetes provides immense scalability and orchestration benefits, but managing and monitoring such a dynamic system requires a robust monitoring solution. One of the best tools for the job is **Grafana Cloud**.
 
-#### Why Use Grafana Cloud for Kubernetes Monitoring?
+**Why Use Grafana Cloud for Kubernetes Monitoring?**
 
 Grafana Cloud provides several key advantages:
 
@@ -28,7 +28,7 @@ Grafana Cloud provides several key advantages:
 - **Alerting & Analytics**: Create custom alerts and analyze trends based on metrics data.
 - **Ease of Integration**: Seamless integration with Prometheus, Loki, and Tempo for a full observability suite.
 
-#### Steps to Set Up Kubernetes Monitoring with Grafana Cloud
+**Steps to Set Up Kubernetes Monitoring with Grafana Cloud**
 
 Let’s jump into the setup process and get your Kubernetes cluster monitored using Grafana Cloud.
 
