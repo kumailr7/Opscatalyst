@@ -22,7 +22,7 @@ Please feel free to [provide feedback](https://github.com/kumailr7/Opscatalyst/i
 ## 🎓 DevOps Journey
 ---
 - [Docker](https://kumailr7.github.io/Opscatalyst//tags/docker)
-- [Kubernetes](https://kumailr7.github.io/Opscatalyst//tags/kubernetes)
+- [Kubernetes](https://kumailr7.github.io/Opscatalyst//tags/Kubernetes)
 
 ## ☁️ Cloud-Native
 ---
