@@ -14,6 +14,8 @@ References: https://grafana.com/docs/grafana-cloud/monitor-infrastructure/
 description: 
 Github Link: https://gitlab.com/kumailrizvi70/k3dclusterops
 ---
+![[KGC-24-9.png]]
+
 In today's fast-paced cloud-native world, ensuring the performance, availability, and security of your Kubernetes clusters is essential for delivering seamless services. Kubernetes provides immense scalability and orchestration benefits, but managing and monitoring such a dynamic system requires a robust monitoring solution. One of the best tools for the job is **Grafana Cloud**.
 
 #### Why Use Grafana Cloud for Kubernetes Monitoring?
@@ -90,11 +92,11 @@ Let’s jump into the setup process and get your Kubernetes cluster monitored us
 Now that everything is set up, you can start exploring your Kubernetes metrics in Grafana Cloud. You’ll see real-time insights into your cluster's performance, including CPU and memory usage, pod health, and network traffic. You can also analyze historical trends and troubleshoot potential issues before they impact your services.
 
 - Once everything is completed , now you will be able to see metrics in the dashboard 
-  ![[Screenshot from 2024-09-16 16-52-21.png]] 
+  ![[KGC-24-7.png]] 
 - Walk through different  dashboards to know about different metrics such as cluster specific , namespace , pods specific as well 
 - `Kubernetes Overview` would give you an great representation of your cluster
 
-![[Screenshot from 2024-09-16 17-04-45.png]]
+![[KGC-24-8.png]]
 
 - Alerts are been setup easily as well 
 #### **Best Practices for Monitoring Kubernetes with Grafana Cloud**
