@@ -4,7 +4,8 @@ Author:
 Author Profile:
   - https://linkedin.com/in/kumail-rizvi
 tags:
-  - example
+  - Kubernetes
+  - Helm
 Creation Date: 2024-08-21T23:44:59
 Last Date: 2024-08-21T23:44:59
 drafts: 

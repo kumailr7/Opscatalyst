@@ -4,7 +4,7 @@ Author:
 Author Profile:
   - https://linkedin.com/in/kumail-rizvi
 tags:
-  - example
+  - About
 Creation Date: 2024-08-21T23:38:39
 Last Date: 2024-08-21T23:38:39
 drafts: 
