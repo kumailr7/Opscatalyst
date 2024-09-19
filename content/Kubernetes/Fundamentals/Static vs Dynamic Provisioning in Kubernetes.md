@@ -17,13 +17,13 @@ Github Link:
 
 In the world of **Kubernetes**, managing persistent storage is crucial when dealing with stateful applications like databases or services that need to retain data even after a pod is destroyed. One key aspect is **provisioning** storage, which can be handled using **static** or **dynamic provisioners**. Let’s dive into what they are and how they work! 🚀
 
-### Static Provisioning 📦
+**Static Provisioning 📦**
 
 With **static provisioning**, the admin manually creates the storage resources (like a Persistent Volume or PV) ahead of time. These volumes are fixed and predefined, meaning they need to exist before a pod can claim them. Think of it as pre-ordering storage space—pods get assigned to these volumes that already exist.
 
 👉 **Scenario**: If you know exactly how much storage you need, and you want complete control over your storage resources, **static provisioning** is a good option. However, it lacks flexibility because volumes must be created beforehand.
 
-### Dynamic Provisioning ⚙️
+**Dynamic Provisioning ⚙️**
 
 Dynamic provisioning allows Kubernetes to automatically create storage resources on demand when a Persistent Volume Claim (PVC) is made. You don’t have to create Persistent Volumes (PV) manually—Kubernetes does that for you by leveraging a **StorageClass**.
 
@@ -58,11 +58,11 @@ In this example, the **pd-ssd** type will create fast, SSD-backed persistent dis
 
 Now that we know about provisioners, let’s move to **Persistent Volumes (PV)** and **Persistent Volume Claims (PVC)**.
 
-#### Persistent Volumes (PV) 📀
+**Persistent Volumes (PV) 📀**
 
 A **Persistent Volume** is a piece of storage in the cluster that has been provisioned by the admin (in static provisioning) or dynamically by Kubernetes (in dynamic provisioning). A PV is a resource in the cluster, just like nodes or pods.
 
-#### Persistent Volume Claims (PVC) 🎟️
+**Persistent Volume Claims (PVC) 🎟️**
 
 A **Persistent Volume Claim** is how pods request storage. Think of a PVC as a ticket a pod uses to claim a specific storage resource (PV). When a pod specifies a PVC, Kubernetes will automatically bind it to an appropriate PV. If no matching PV exists, and you have dynamic provisioning set up, Kubernetes will create one automatically.
 
@@ -109,7 +109,7 @@ Another example of Persistent Volume pointing to the cluster via PVC
 
 ---
 
-### 🛠️ Wrapping Up: Choosing Static vs Dynamic Provisioning
+#### 🛠️ Wrapping Up: Choosing Static vs Dynamic Provisioning
 
 - **Static provisioning**: 🛠️ Manually managed volumes, offering full control but limited flexibility.
 - **Dynamic provisioning**: 🔄 Automatically managed volumes, offering flexibility and scalability, especially for cloud-native apps.
