@@ -98,7 +98,7 @@ A Diagrammatic Representation of Storage Class shared between nodes
 ![[SDP-24-1.png]]
 
 
-Another example of Persistent Volume pointing to the cluster via PVC 
+Another example of Persistent Volume pointing to the application inside the cluster via PVC 
 
 ![[SDP-24-2.png]]
 
