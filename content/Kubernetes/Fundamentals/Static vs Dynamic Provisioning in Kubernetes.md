@@ -102,7 +102,7 @@ Another example of Persistent Volume pointing to the cluster via PVC
 
 ![[SDP-24-2.png]]
 
-> [!PRO TIP]
+> [!TIP]
 > 
 > 💡 Always use **dynamic provisioning** for a more scalable, efficient Kubernetes environment! Your infrastructure team will thank you for it! 🙌
 
