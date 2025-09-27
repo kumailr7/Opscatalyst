@@ -13,12 +13,15 @@ References: https://aws.amazon.com/jp/blogs/storage/protecting-encrypted-amazon-
 description:
 Github Link:
 ---
+## Cross-Account Regional Snapshot and Restore of RDS DB in AWS
 ---
 ## Architecture Diagram
 
 Before diving into the detailed steps, let’s outline the architecture of the process. This guide demonstrates how to migrate an Amazon RDS database snapshot from Account B in the Singapore region to Account A in the Singapore Region a different AWS region, and then how to restore it within Account B's London region.
 
-![RDS_MIGRATIONS](../assets/rds_migrations.png)
+
+![[rds_migrations.png]]
+
 ---
 
 ## Scenario
