@@ -13,7 +13,7 @@ References: https://aws.amazon.com/jp/blogs/storage/protecting-encrypted-amazon-
 description:
 Github Link:
 ---
-# Cross-Account Regional Snapshot and Restore of RDS DB in AWS
+
 ---
 ## Architecture Diagram
 
