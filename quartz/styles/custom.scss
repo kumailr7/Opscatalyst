@@ -1,4 +1,80 @@
 @use "./base.scss";
+@use "./variables.scss" as *;
+
+// ----- Sidebar sections (card-style) -----
+.sidebar.left {
+  & > .search {
+    border-radius: $radiusSm;
+    overflow: visible;
+  }
+  & > .search .search-button {
+    border-radius: $radiusSm;
+    padding: 0.5rem 0.75rem;
+    background: color-mix(in srgb, var(--secondary) 8%, var(--light));
+    border: 1px solid color-mix(in srgb, var(--secondary) 15%, var(--light));
+  }
+  & > .search .search-button:hover {
+    background: color-mix(in srgb, var(--secondary) 14%, var(--light));
+  }
+}
+
+.sidebar {
+  & > .recent-notes {
+    padding: 1rem 1.1rem;
+    border-radius: $radiusMd;
+    background: color-mix(in srgb, var(--secondary) 6%, var(--light));
+    border: 1px solid color-mix(in srgb, var(--secondary) 12%, var(--light));
+  }
+  & > .recent-notes > h3 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--gray);
+    margin-bottom: 0.5rem;
+  }
+}
+
+.sidebar.left button#explorer {
+  padding: 0.5rem 0;
+}
+.sidebar.left button#explorer h2 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--gray);
+}
+
+.page-title a {
+  font-weight: 600;
+  color: var(--dark);
+  transition: opacity 0.2s ease;
+}
+.page-title a:hover {
+  opacity: 0.85;
+}
+
+// ----- Table of contents & right sidebar -----
+.sidebar.right {
+  & > .toc,
+  & > .backlinks,
+  & > .graph {
+    padding: 1rem 1.1rem;
+    border-radius: $radiusMd;
+    background: color-mix(in srgb, var(--secondary) 6%, var(--light));
+    border: 1px solid color-mix(in srgb, var(--secondary) 12%, var(--light));
+  }
+  & #toc h3,
+  & .backlinks h3,
+  & .graph h3 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--gray);
+  }
+}
 
 // Override
 .external-embed {

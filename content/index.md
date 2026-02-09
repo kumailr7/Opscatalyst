@@ -1,5 +1,6 @@
 ---
 title: Home Page
+cssclasses: ["magic-bento"]
 Author:
   - Kumail Rizvi
 Author Profile:

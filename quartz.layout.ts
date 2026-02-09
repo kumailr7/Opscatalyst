@@ -4,7 +4,10 @@ import * as Component from "./quartz/components"
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
-  header: [],
+  header: [
+    Component.NavBar({ githubUrl: "https://github.com/kumailr7/Opscatalyst" }),
+    Component.Darkmode(),
+  ],
   afterBody: [Component.Comments()],
   footer: Component.Footer({
     links: {
@@ -16,6 +19,7 @@ export const sharedPageComponents: SharedLayout = {
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
+    Component.BentoHome(),
     Component.Breadcrumbs(),
     Component.ArticleTitle(),
     Component.ContentMeta({showReadingTime:true}),
@@ -26,13 +30,20 @@ export const defaultContentPageLayout: PageLayout = {
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
-    Component.MobileOnly(Component.Darkmode()),
     Component.DesktopOnly(Component.RecentNotes({ linkToMore: "tags/" , limit: 3, showTags: false })),
-    Component.DesktopOnly(Component.Explorer()),
+    Component.DesktopOnly(
+      Component.Explorer({
+        sortFn: (a, b) => {
+          if ((!a.file && !b.file) || (a.file && b.file)) {
+            return a.displayName.localeCompare(b.displayName)
+          }
+          if (a.file && !b.file) return -1
+          return 1
+        },
+      }),
+    ),
   ],
   right: [
-    // Component.MobileOnly(Component.Explorer()),
-    Component.DesktopOnly(Component.Darkmode()),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
     Component.Graph(),
@@ -46,21 +57,7 @@ export const defaultListPageLayout: PageLayout = {
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
-    Component.Darkmode(),
     Component.DesktopOnly(Component.Explorer()),
   ],
   right: [],
 }
-
-Component.Explorer({
-  sortFn: (a, b) => {
-    if ((!a.file && !b.file) || (a.file && b.file)) {
-      return a.displayName.localeCompare(b.displayName)
-    }
-    if (a.file && !b.file) {
-      return -1
-    } else {
-      return 1
-    }
-  },
-})

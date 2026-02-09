@@ -20,9 +20,9 @@ import MobileOnly from "./MobileOnly"
 import RecentNotes from "./RecentNotes"
 import Breadcrumbs from "./Breadcrumbs"
 import Comments from "./Comments"
-
-import Comments from "./Comments"
 import Author from "./Author"
+import NavBar from "./NavBar"
+import BentoHome from "./BentoHome"
 
 export {
   ArticleTitle,
@@ -46,7 +46,8 @@ export {
   RecentNotes,
   NotFound,
   Breadcrumbs,
-
   Comments,
   Author,
+  NavBar,
+  BentoHome,
 }

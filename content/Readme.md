@@ -12,9 +12,9 @@ drafts:
 References: 
 description:
 ---
-# Ops-Catalyst Blog 🎓
+# DevOps-Dojo Blog 🎓
 
-Welcome to **Ops-Catalyst**, a blog dedicated to my DevOps journey and knowledge sharing. Here, you'll find a variety of content ranging from beginner-friendly guides to advanced tutorials, all crafted to help you master the essential tools and technologies in the DevOps world.
+Welcome to **DevOps-Dojo**, a blog dedicated to my DevOps journey and knowledge sharing. Here, you'll find a variety of content ranging from beginner-friendly guides to advanced tutorials, all crafted to help you master the essential tools and technologies in the DevOps world.
 
 ## 🌐 Blog Topics
 

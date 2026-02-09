@@ -68,7 +68,7 @@ export default (() => {
           </>
         )}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta property="og:site_name" content="CS Notes by Kumail Rizvi" />
+        <meta property="og:site_name" content="DevOps-Dojo" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         {cfg.baseUrl && <meta property="og:image" content={ogImagePath} />}
