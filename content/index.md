@@ -107,9 +107,8 @@ Please feel free to [provide feedback](https://github.com/kumailr7/Devops-Dojo/i
   <div class="stay-updated-card">
     <div class="su-sparkles">✦✦</div>
     <h2 class="su-title">Stay Updated</h2>
-    <p class="su-desc">✨ This blog is continuously evolving as I learn and explore new areas. Be sure to check back regularly for fresh content and updates. I also run a <strong>Tech DevOps Community with 200+ members</strong> — feel free to join and connect.</p>
+    <p class="su-desc">✨ This blog is continuously evolving as I learn and explore new areas. Be sure to check back regularly for fresh content and updates. I also run a <strong>WhatsApp Tech DevOps Group with 200+ members</strong> — join us and grow together.</p>
     <div class="su-form">
-      <input class="su-input" type="email" placeholder="Enter your email" />
       <a href="https://chat.whatsapp.com/IsnIsAqqjwMBICe0jU3GHd" target="_blank" rel="noopener noreferrer" class="su-btn">Join the Dojo</a>
     </div>
     <p class="su-tagline">Happy learning! 🚀</p>
@@ -159,24 +158,6 @@ Please feel free to [provide feedback](https://github.com/kumailr7/Devops-Dojo/i
   justify-content: center;
   flex-wrap: wrap;
 }
-.su-input {
-  flex: 1;
-  min-width: 200px;
-  max-width: 300px;
-  background: #060e20;
-  border: 1px solid rgba(64, 71, 81, 0.3);
-  border-radius: 8px;
-  padding: 0.75rem 1.25rem;
-  color: #dae2fd;
-  font-family: var(--bodyFont);
-  font-size: 0.9rem;
-  outline: none;
-  transition: border-color 0.2s ease;
-}
-.su-input:focus {
-  border-color: rgba(76, 214, 251, 0.4);
-}
-.su-input::placeholder { color: #404751; }
 .su-btn {
   background: #70e000;
   color: #0b2000 !important;
