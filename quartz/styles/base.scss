@@ -21,7 +21,7 @@ section {
 }
 
 :root[saved-theme="dark"] body {
-  background: linear-gradient(180deg, var(--light) 0%, color-mix(in srgb, var(--secondary) 4%, var(--light)) 100%);
+  background: #060e20;
 }
 
 .text-highlight {
@@ -275,10 +275,12 @@ input[type="checkbox"] {
 }
 
 blockquote {
-  margin: 1rem 0;
-  border-left: 3px solid var(--secondary);
-  padding-left: 1rem;
+  margin: 1.25rem 0;
+  border-left: 2px solid var(--secondary);
+  padding-left: 1.25rem;
   transition: border-color 0.2s ease;
+  color: var(--gray);
+  font-style: italic;
 }
 
 h1,
@@ -319,23 +321,27 @@ h6 {
   }
 }
 
-// typography improvements
+// Typography — Architectural Terminal scale
 h1 {
   font-size: 1.85rem;
+  font-weight: $boldWeight;
+  letter-spacing: -0.03em;
   margin-top: 2.25rem;
   margin-bottom: 1rem;
 }
 
 h2 {
   font-size: 1.55rem;
+  font-weight: $semiBoldWeight;
+  letter-spacing: -0.02em;
   margin-top: 1.9rem;
   margin-bottom: 1rem;
-  // text-decoration: underline;
-  // color: var(--primary); // Add a custom color to make it visually distinct
 }
 
 h3 {
   font-size: 1.12rem;
+  font-weight: $semiBoldWeight;
+  letter-spacing: -0.01em;
   margin-top: 1.62rem;
   margin-bottom: 1rem;
 }
@@ -344,77 +350,92 @@ h4,
 h5,
 h6 {
   font-size: 1rem;
+  font-weight: $semiBoldWeight;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
 }
 
+// Terminal Component — Architectural Terminal code block style
 figure[data-rehype-pretty-code-figure] {
   margin: 0;
   position: relative;
   line-height: 1.6rem;
-  position: relative;
+  border-radius: $radiusSm;
+  overflow: hidden;
 
   & > [data-rehype-pretty-code-title] {
     font-family: var(--codeFont);
-    font-size: 0.9rem;
-    padding: 0.1rem 0.5rem;
-    border: 1px solid var(--lightgray);
-    width: max-content;
-    border-radius: 5px;
-    margin-bottom: -0.5rem;
+    font-size: 0.78rem;
+    padding: 0.45rem 1rem;
+    background: color-mix(in srgb, var(--secondary) 10%, var(--lightgray));
     color: var(--darkgray);
+    letter-spacing: 0.02em;
+    border-bottom: 1px solid rgba(64, 71, 81, 0.3);
   }
 
   & > pre {
     padding: 0;
+    border-radius: 0;
   }
 }
 
 pre {
   font-family: var(--codeFont);
   padding: 0 0.5rem;
-  border-radius: 5px;
+  border-radius: $radiusSm;
   overflow-x: auto;
-  border: 1px solid var(--lightgray);
+  border: none;
+  outline: 1px solid rgba(64, 71, 81, 0.25);
   position: relative;
+  background: color-mix(in srgb, var(--lightgray) 30%, var(--light));
+
+  :root[saved-theme="dark"] & {
+    background: #060e20;
+    outline-color: rgba(64, 71, 81, 0.3);
+    box-shadow: 0 4px 20px rgba(6, 14, 32, 0.4);
+  }
 
   &:has(> code.mermaid) {
     border: none;
+    outline: none;
+    background: transparent;
+    box-shadow: none;
   }
 
   & > code {
     background: none;
     padding: 0;
-    font-size: 0.85rem;
+    font-size: 0.84rem;
     counter-reset: line;
     counter-increment: line 0;
     display: grid;
-    padding: 0.5rem 0;
+    padding: 0.75rem 0;
     overflow-x: scroll;
 
     & [data-highlighted-chars] {
       background-color: var(--highlight);
-      border-radius: 5px;
+      border-radius: 3px;
     }
 
     & > [data-line] {
-      padding: 0 0.25rem;
+      padding: 0 0.5rem;
       box-sizing: border-box;
-      border-left: 3px solid transparent;
+      border-left: 2px solid transparent;
 
       &[data-highlighted-line] {
         background-color: var(--highlight);
-        border-left: 3px solid var(--secondary);
+        border-left: 2px solid var(--secondary);
       }
 
       &::before {
         content: counter(line);
         counter-increment: line;
         width: 1rem;
-        margin-right: 1rem;
+        margin-right: 1.25rem;
         display: inline-block;
         text-align: right;
-        color: rgba(115, 138, 148, 0.6);
+        color: rgba(138, 145, 157, 0.45);
+        font-size: 0.78rem;
       }
     }
 
@@ -429,12 +450,17 @@ pre {
 }
 
 code {
-  font-size: 0.9em;
-  color: var(--dark);
+  font-size: 0.88em;
+  color: var(--secondary);
   font-family: var(--codeFont);
-  border-radius: 5px;
-  padding: 0.1rem 0.2rem;
-  background: var(--lightgray);
+  border-radius: $radiusSm;
+  padding: 0.1rem 0.35rem;
+  background: color-mix(in srgb, var(--secondary) 12%, var(--light));
+
+  :root[saved-theme="dark"] & {
+    background: rgba(76, 214, 251, 0.08);
+    color: #4cd6fb;
+  }
 }
 
 tbody,
@@ -496,11 +522,10 @@ p > img + em {
 
 hr {
   width: 100%;
-  // margin: 2rem auto;
   margin-top: -0.5rem;
   height: 1px;
   border: none;
-  background-color: var(--lightgray);
+  background-color: rgba(64, 71, 81, 0.35);
 }
 
 audio,

@@ -5,13 +5,14 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [
-    Component.NavBar({ githubUrl: "https://github.com/kumailr7/Opscatalyst" }),
+    Component.NavBar({ githubUrl: "https://github.com/kumailr7/Devops-Dojo" }),
     Component.Darkmode(),
+    Component.AuroraBackground(),
   ],
-  afterBody: [Component.Comments()],
+  afterBody: [],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/kumailr7/Opscatalyst"
+      GitHub: "https://github.com/kumailr7/Devops-Dojo"
     },
   }),
 }
@@ -37,8 +38,9 @@ export const defaultContentPageLayout: PageLayout = {
           if ((!a.file && !b.file) || (a.file && b.file)) {
             return a.displayName.localeCompare(b.displayName)
           }
-          if (a.file && !b.file) return -1
-          return 1
+          // folders first, loose files (About Me, Readme) last
+          if (a.file && !b.file) return 1
+          return -1
         },
       }),
     ),

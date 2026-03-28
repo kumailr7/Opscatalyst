@@ -23,6 +23,7 @@ import Comments from "./Comments"
 import Author from "./Author"
 import NavBar from "./NavBar"
 import BentoHome from "./BentoHome"
+import AuroraBackground from "./AuroraBackground"
 
 export {
   ArticleTitle,
@@ -50,4 +51,5 @@ export {
   Author,
   NavBar,
   BentoHome,
+  AuroraBackground,
 }

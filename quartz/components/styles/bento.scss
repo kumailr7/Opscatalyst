@@ -1,11 +1,11 @@
 @use "../../styles/variables.scss" as *;
 
-// ----- Magic Bento: grid + cards with topic-based hover glow -----
+// ─── Magic Bento — Architectural Terminal palette ─────────────────────────────
 article.magic-bento {
   --bento-gap: 1rem;
-  --bento-radius: 14px;
-  --bento-border: 1px solid color-mix(in srgb, var(--secondary) 25%, transparent);
-  --glow-opacity: 0.35;
+  --bento-radius: 8px;
+  --bento-border: 1px solid rgba(64, 71, 81, 0.18);
+  --glow-opacity: 0.3;
 }
 
 .bento-grid {
@@ -19,7 +19,7 @@ article.magic-bento {
   position: relative;
   border-radius: var(--bento-radius);
   border: var(--bento-border);
-  background: color-mix(in srgb, var(--secondary) 8%, var(--light));
+  background: rgba(23, 31, 51, 0.7);   // --at-surface with slight transparency
   padding: 1.25rem 1.35rem;
   overflow: hidden;
   transition:
@@ -28,6 +28,12 @@ article.magic-bento {
     border-color 0.3s ease,
     background 0.3s ease;
 
+  // Light mode fallback
+  :root:not([saved-theme="dark"]) & {
+    background: rgba(200, 215, 240, 0.5);
+  }
+
+  // Glow overlay
   &::before {
     content: "";
     position: absolute;
@@ -38,18 +44,41 @@ article.magic-bento {
     pointer-events: none;
   }
 
+  // Background icon — faded symbol top-right
+  &::after {
+    font-family: 'Material Symbols Outlined';
+    font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 48;
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    font-size: 3.5rem;
+    line-height: 1;
+    opacity: 0.07;
+    color: #fff;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    user-select: none;
+  }
+
+  &:hover::after {
+    opacity: 0.15;
+  }
+
   hr {
     margin: 0.5rem 0 0.75rem;
     border: none;
-    border-top: 1px solid color-mix(in srgb, var(--secondary) 18%, transparent);
+    border-top: 1px solid rgba(64, 71, 81, 0.2);
   }
 
   h2 {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     margin: 0;
     display: flex;
     align-items: center;
     gap: 0.4rem;
+    font-family: var(--headerFont);
+    letter-spacing: -0.02em;
+    color: var(--dark);
   }
 
   ul {
@@ -66,106 +95,121 @@ article.magic-bento {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.25rem 0;
-    border-radius: 6px;
-    transition: background 0.2s ease, color 0.2s ease;
+    padding: 0.2rem 0;
+    border-radius: 3px;
+    color: var(--darkgray);
+    transition: color 0.2s ease;
+    background: none !important;
   }
 
   a:hover {
-    background: color-mix(in srgb, var(--secondary) 20%, transparent);
+    color: var(--secondary) !important;
   }
 }
 
-// Topic-based hover glow (transparent color overlay)
-.bento-card[data-topic="devops-journey"]::before {
-  background: radial-gradient(
-    ellipse 120% 80% at 50% 0%,
-    color-mix(in srgb, #6366f1 var(--glow-opacity), transparent) 0%,
-    transparent 70%
-  );
-}
-.bento-card[data-topic="devops-journey"]:hover {
-  border-color: color-mix(in srgb, #6366f1 50%, transparent);
-  box-shadow: 0 8px 32px color-mix(in srgb, #6366f1 18%, transparent);
-}
-.bento-card[data-topic="devops-journey"]:hover::before {
-  opacity: 1;
-}
+// ─── Background icons per topic ──────────────────────────────────────────────
+.bento-card[data-topic="devops-journey"]::after   { content: 'terminal'; }
+.bento-card[data-topic="cloud-native"]::after     { content: 'cloud'; }
+.bento-card[data-topic="cloud-computing"]::after  { content: 'computer'; }
+.bento-card[data-topic="system-design"]::after    { content: 'hub'; }
+.bento-card[data-topic="networking"]::after       { content: 'lan'; }
 
-.bento-card[data-topic="cloud-native"]::before {
-  background: radial-gradient(
-    ellipse 120% 80% at 50% 0%,
-    color-mix(in srgb, #8b5cf6 var(--glow-opacity), transparent) 0%,
-    transparent 70%
-  );
-}
-.bento-card[data-topic="cloud-native"]:hover {
-  border-color: color-mix(in srgb, #8b5cf6 50%, transparent);
-  box-shadow: 0 8px 32px color-mix(in srgb, #8b5cf6 18%, transparent);
-}
-.bento-card[data-topic="cloud-native"]:hover::before {
-  opacity: 1;
-}
+// ─── Topic-based hover glow — AT palette ─────────────────────────────────────
 
+// AWS / Cloud Computing — primary electric blue
 .bento-card[data-topic="cloud-computing"]::before {
   background: radial-gradient(
     ellipse 120% 80% at 50% 0%,
-    color-mix(in srgb, #06b6d4 var(--glow-opacity), transparent) 0%,
+    rgba(76, 214, 251, var(--glow-opacity)) 0%,
     transparent 70%
   );
 }
 .bento-card[data-topic="cloud-computing"]:hover {
-  border-color: color-mix(in srgb, #06b6d4 50%, transparent);
-  box-shadow: 0 8px 32px color-mix(in srgb, #06b6d4 18%, transparent);
+  border-color: rgba(76, 214, 251, 0.4);
+  box-shadow: 0 8px 32px rgba(76, 214, 251, 0.12);
 }
-.bento-card[data-topic="cloud-computing"]:hover::before {
-  opacity: 1;
-}
+.bento-card[data-topic="cloud-computing"]:hover::before { opacity: 1; }
 
+// System Design — primary-container teal
 .bento-card[data-topic="system-design"]::before {
   background: radial-gradient(
     ellipse 120% 80% at 50% 0%,
-    color-mix(in srgb, #ec4899 var(--glow-opacity), transparent) 0%,
+    rgba(0, 130, 156, var(--glow-opacity)) 0%,
     transparent 70%
   );
 }
 .bento-card[data-topic="system-design"]:hover {
-  border-color: color-mix(in srgb, #ec4899 50%, transparent);
-  box-shadow: 0 8px 32px color-mix(in srgb, #ec4899 18%, transparent);
+  border-color: rgba(0, 130, 156, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 130, 156, 0.12);
 }
-.bento-card[data-topic="system-design"]:hover::before {
-  opacity: 1;
-}
+.bento-card[data-topic="system-design"]:hover::before { opacity: 1; }
 
+// DevOps Journey — tertiary green
+.bento-card[data-topic="devops-journey"]::before {
+  background: radial-gradient(
+    ellipse 120% 80% at 50% 0%,
+    rgba(112, 224, 0, var(--glow-opacity)) 0%,
+    transparent 70%
+  );
+}
+.bento-card[data-topic="devops-journey"]:hover {
+  border-color: rgba(112, 224, 0, 0.4);
+  box-shadow: 0 8px 32px rgba(112, 224, 0, 0.1);
+}
+.bento-card[data-topic="devops-journey"]:hover::before { opacity: 1; }
+
+// Cloud Native — soft violet (keeps personality)
+.bento-card[data-topic="cloud-native"]::before {
+  background: radial-gradient(
+    ellipse 120% 80% at 50% 0%,
+    rgba(167, 139, 250, var(--glow-opacity)) 0%,
+    transparent 70%
+  );
+}
+.bento-card[data-topic="cloud-native"]:hover {
+  border-color: rgba(167, 139, 250, 0.4);
+  box-shadow: 0 8px 32px rgba(167, 139, 250, 0.1);
+}
+.bento-card[data-topic="cloud-native"]:hover::before { opacity: 1; }
+
+// Networking — tertiary green variant
 .bento-card[data-topic="networking"]::before {
   background: radial-gradient(
     ellipse 120% 80% at 50% 0%,
-    color-mix(in srgb, #10b981 var(--glow-opacity), transparent) 0%,
+    rgba(76, 214, 251, var(--glow-opacity)) 0%,
     transparent 70%
   );
 }
 .bento-card[data-topic="networking"]:hover {
-  border-color: color-mix(in srgb, #10b981 50%, transparent);
-  box-shadow: 0 8px 32px color-mix(in srgb, #10b981 18%, transparent);
+  border-color: rgba(76, 214, 251, 0.4);
+  box-shadow: 0 8px 32px rgba(76, 214, 251, 0.1);
 }
-.bento-card[data-topic="networking"]:hover::before {
-  opacity: 1;
-}
+.bento-card[data-topic="networking"]:hover::before { opacity: 1; }
 
-// Fallback for any other topic
-.bento-card:not([data-topic="devops-journey"]):not([data-topic="cloud-native"]):not([data-topic="cloud-computing"]):not([data-topic="system-design"]):not([data-topic="networking"])::before {
+// Fallback — primary
+.bento-card:not([data-topic])::before,
+.bento-card[data-topic=""]::before {
   background: radial-gradient(
     ellipse 120% 80% at 50% 0%,
-    color-mix(in srgb, var(--secondary) var(--glow-opacity), transparent) 0%,
+    rgba(76, 214, 251, var(--glow-opacity)) 0%,
     transparent 70%
   );
 }
+
+// Universal hover lift
 .bento-card:hover {
   transform: translateY(-2px);
+  background: rgba(34, 42, 61, 0.9);   // --at-surface-high
+
+  :root:not([saved-theme="dark"]) & {
+    background: rgba(180, 200, 230, 0.6);
+  }
 }
+
+// Fallback hover glow
 .bento-card:not([data-topic="devops-journey"]):not([data-topic="cloud-native"]):not([data-topic="cloud-computing"]):not([data-topic="system-design"]):not([data-topic="networking"]):hover {
-  border-color: color-mix(in srgb, var(--secondary) 50%, transparent);
-  box-shadow: 0 8px 32px color-mix(in srgb, var(--secondary) 18%, transparent);
+  border-color: rgba(76, 214, 251, 0.4);
+  box-shadow: 0 8px 32px rgba(76, 214, 251, 0.1);
 }
 .bento-card:not([data-topic="devops-journey"]):not([data-topic="cloud-native"]):not([data-topic="cloud-computing"]):not([data-topic="system-design"]):not([data-topic="networking"]):hover::before {
   opacity: 1;
