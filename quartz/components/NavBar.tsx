@@ -88,8 +88,8 @@ export default ((opts?: NavBarOptions) => {
   padding: 0 !important;
   font-family: var(--headerFont);
   font-weight: 700;
-  font-size: 1.55rem;
-  letter-spacing: -0.04em;
+  font-size: 1.9rem;
+  letter-spacing: -0.05em;
   transition: opacity 0.2s ease;
 }
 .navbar-logo-icon {

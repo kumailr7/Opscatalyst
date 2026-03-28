@@ -58,6 +58,31 @@ function initBento() {
   grid.className = "bento-grid"
   cards.forEach(({ card }) => grid.appendChild(card))
   article.appendChild(grid)
+
+  // Decrypt animation on bento card headings
+  const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&"
+  function decrypt(el: HTMLElement) {
+    const final = el.dataset.final ?? el.textContent ?? ""
+    el.dataset.final = final
+    let frame = 0
+    const frames = 22
+    const id = setInterval(() => {
+      el.textContent = final.split("").map((ch, i) => {
+        if (ch === " ") return " "
+        if (i < Math.floor((frame / frames) * final.length)) return ch
+        return CHARS[Math.floor(Math.random() * CHARS.length)]
+      }).join("")
+      if (++frame > frames) { clearInterval(id); el.textContent = final }
+    }, 38)
+  }
+
+  grid.querySelectorAll<HTMLElement>(".bento-card h2").forEach((h2) => {
+    // Fire once on load with a staggered delay
+    const idx = Array.from(grid.querySelectorAll(".bento-card h2")).indexOf(h2)
+    setTimeout(() => decrypt(h2), idx * 120)
+    // Re-fire on card hover
+    h2.closest(".bento-card")?.addEventListener("mouseenter", () => decrypt(h2))
+  })
 }
 
 document.addEventListener("nav", () => initBento())
