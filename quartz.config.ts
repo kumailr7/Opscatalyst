@@ -8,7 +8,7 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "DevOps-Dojo",
+    pageTitle: "DEVOPS-DOJO",
     enableSPA: false,
     enablePopovers: true,
     analytics: {

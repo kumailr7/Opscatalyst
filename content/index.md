@@ -1,5 +1,5 @@
 ---
-title: Home Page
+title: DevOps Dojo
 cssclasses: ["magic-bento"]
 Author:
   - Kumail Rizvi
