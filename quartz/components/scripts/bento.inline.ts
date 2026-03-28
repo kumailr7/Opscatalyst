@@ -19,12 +19,15 @@ function initBento() {
 
   const children = Array.from(article.children)
   const intro: Element[] = []
+  const outro: Element[] = []
   const cards: { card: HTMLDivElement; topic: string }[] = []
   let i = 0
+  let seenCard = false
 
   while (i < children.length) {
     const el = children[i]
     if (el.tagName === "H2") {
+      seenCard = true
       const topic = slugFromHeading((el as HTMLElement).innerText || "")
       const card = document.createElement("div")
       card.className = "bento-card"
@@ -44,7 +47,11 @@ function initBento() {
       i += skip
       continue
     }
-    intro.push(el)
+    if (seenCard) {
+      outro.push(el)
+    } else {
+      intro.push(el)
+    }
     i += 1
   }
 
@@ -58,6 +65,9 @@ function initBento() {
   grid.className = "bento-grid"
   cards.forEach(({ card }) => grid.appendChild(card))
   article.appendChild(grid)
+
+  const outroClone = outro.map((node) => node.cloneNode(true))
+  outroClone.forEach((node) => article.appendChild(node))
 
   // Decrypt animation on bento card headings
   const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&"
