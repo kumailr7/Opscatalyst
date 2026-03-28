@@ -3,6 +3,9 @@ import { FullSlug, joinSegments, pathToRoot } from "../util/path"
 import { JSResourceToScriptElement } from "../util/resources"
 import { googleFontHref } from "../util/theme"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
+// @ts-ignore
+import vercelInsightsScript from "./scripts/vercelInsights.inline"
+
 
 export default (() => {
   const Head: QuartzComponent = ({ cfg, fileData, externalResources }: QuartzComponentProps) => {
@@ -100,6 +103,8 @@ export default (() => {
       </head>
     )
   }
+
+  Head.afterDOMLoaded = vercelInsightsScript
 
   return Head
 }) satisfies QuartzComponentConstructor

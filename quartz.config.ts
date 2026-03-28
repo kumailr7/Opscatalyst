@@ -15,7 +15,7 @@ const config: QuartzConfig = {
       provider: "google",
       tagId: "G-H0G1YKHC31"
     },
-    baseUrl: "devops-dojo.vercel.app",  // Update to your custom domain once set in Vercel
+    baseUrl: "devops-dojo.ninja",
     ignorePatterns: ["private", "Templates", ".obsidian", "Personal", "Archive", "Omnivore", "**/*.excalidraw.md", "rawNotes"],
     defaultDateType: "modified",
     locale: "en-US",
