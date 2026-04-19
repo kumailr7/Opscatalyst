@@ -14,7 +14,7 @@ References: https://grafana.com/docs/grafana-cloud/monitor-infrastructure/
 description: 
 Github Link: https://gitlab.com/kumailrizvi70/k3dclusterops
 ---
-![[KGC-24-1.png]]
+![[KGC-24-9.png]]
 
 In today's fast-paced cloud-native world, ensuring the performance, availability, and security of your Kubernetes clusters is essential for delivering seamless services. Kubernetes provides immense scalability and orchestration benefits, but managing and monitoring such a dynamic system requires a robust monitoring solution. One of the best tools for the job is **Grafana Cloud**.
 
