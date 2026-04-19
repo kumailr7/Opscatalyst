@@ -24,6 +24,9 @@ jobs:
       - name: Build Quartz
         run: npx quartz build
 
+      - name: Install Vercel CLI
+        run: npm install -g vercel@latest
+
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25
         with:
@@ -32,4 +35,3 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           working-directory: ./
           vercel-args: '--prod'
-          vercel-cli-version: 'latest'
