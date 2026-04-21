@@ -134,12 +134,12 @@ aws ecr create-pull-through-cache-rule \
 ## Scenario 1 Architecture — Public to Private
 ---
 
-![Public to Private ECR Pull Through Cache](assets/public-to-private-ecr.png)
+![[public-to-private-ecr.png]]
 
 ## Scenario 2 Architecture — Private to Private
 ---
 
-![Private to Private ECR Pull Through Cache](assets/private-to-private-ecr.png)
+![[private-to-private-ecr.png]]
 
 ---
 
