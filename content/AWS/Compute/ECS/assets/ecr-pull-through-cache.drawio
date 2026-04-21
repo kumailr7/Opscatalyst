@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" version="21.0.0">
+  <diagram name="ECR Pull Through Cache" id="ecr-ptc-arch">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ====== WORKLOAD ACCOUNT GROUP ====== -->
+        <mxCell id="workload-group" value="Workload Account" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_account;grStroke=0;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#E6F2F8;strokeColor=#147EBA;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="80" y="200" width="480" height="280" as="geometry" />
+        </mxCell>
+
+        <!-- ECS Cluster -->
+        <mxCell id="ecs-node" value="ECS / EKS&#xa;Workload" style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#ED7100;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.ecs;" vertex="1" parent="1">
+          <mxGeometry x="150" y="300" width="60" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Private ECR (cache) -->
+        <mxCell id="ecr-cache" value="Private ECR&#xa;(Pull-Through Cache)" style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#ED7100;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.ecr;" vertex="1" parent="1">
+          <mxGeometry x="360" y="300" width="60" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Secrets Manager -->
+        <mxCell id="secrets-node" value="Secrets Manager&#xa;(Hub Credentials)" style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#DD344C;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.secrets_manager;" vertex="1" parent="1">
+          <mxGeometry x="360" y="410" width="60" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ====== PLATFORM ACCOUNT GROUP ====== -->
+        <mxCell id="platform-group" value="Platform Account (Source ECR)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_account;grStroke=0;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#FEF5E7;strokeColor=#E67E22;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="680" y="200" width="240" height="180" as="geometry" />
+        </mxCell>
+
+        <!-- Source ECR (platform) -->
+        <mxCell id="ecr-source" value="Private ECR&#xa;(Base Images)" style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#ED7100;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.ecr;" vertex="1" parent="1">
+          <mxGeometry x="770" y="265" width="60" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ====== PUBLIC REGISTRIES GROUP ====== -->
+        <mxCell id="public-group" value="Public Registries" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_internet;grStroke=0;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#F2F2F2;strokeColor=#666666;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="680" y="430" width="240" height="220" as="geometry" />
+        </mxCell>
+
+        <!-- Docker Hub -->
+        <mxCell id="dockerhub-node" value="Docker Hub" style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#666666;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.internet;" vertex="1" parent="1">
+          <mxGeometry x="700" y="480" width="60" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ECR Public -->
+        <mxCell id="ecr-public-node" value="ECR Public&#xa;(public.ecr.aws)" style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#ED7100;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.ecr;" vertex="1" parent="1">
+          <mxGeometry x="840" y="480" width="60" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Quay / GHCR -->
+        <mxCell id="other-reg-node" value="Quay / GHCR" style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#666666;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.internet;" vertex="1" parent="1">
+          <mxGeometry x="770" y="570" width="60" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ====== ARROWS ====== -->
+
+        <!-- ECS → ECR Cache: docker pull -->
+        <mxCell id="e1" value="docker pull" style="edgeStyle=orthogonalEdgeStyle;html=1;fontColor=#232F3E;fontSize=10;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="ecs-node" target="ecr-cache" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ECR Cache → Source ECR: cache miss (private→private) -->
+        <mxCell id="e2" value="cache miss&#xa;(private→private)" style="edgeStyle=orthogonalEdgeStyle;html=1;fontColor=#E67E22;fontStyle=2;fontSize=10;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;strokeColor=#E67E22;" edge="1" source="ecr-cache" target="ecr-source" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ECR Cache → Docker Hub: cache miss (public) -->
+        <mxCell id="e3" value="cache miss&#xa;(public→private)" style="edgeStyle=orthogonalEdgeStyle;html=1;fontColor=#666666;fontStyle=2;fontSize=10;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;dashed=1;strokeColor=#666666;" edge="1" source="ecr-cache" target="dockerhub-node" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ECR Cache → ECR Public -->
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;strokeColor=#666666;" edge="1" source="ecr-cache" target="ecr-public-node" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ECR Cache → Quay/GHCR -->
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;strokeColor=#666666;" edge="1" source="ecr-cache" target="other-reg-node" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Secrets Manager → ECR Cache (auth) -->
+        <mxCell id="e6" value="credentials" style="edgeStyle=orthogonalEdgeStyle;html=1;fontSize=10;strokeColor=#DD344C;dashed=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" source="secrets-node" target="ecr-cache" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ====== LEGEND ====== -->
+        <mxCell id="legend-title" value="Legend" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="80" y="530" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-solid" value="docker pull (direct)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="560" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-dashed" value="cache miss → upstream fetch" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="100" y="582" width="200" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
