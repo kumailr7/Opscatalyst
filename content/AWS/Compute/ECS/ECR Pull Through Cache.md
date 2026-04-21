@@ -131,33 +131,15 @@ aws ecr create-pull-through-cache-rule \
 
 ---
 
-## Architecture Diagram
+## Scenario 1 Architecture — Public to Private
 ---
 
-> [!info] draw.io Diagram
-> Open `assets/ecr-pull-through-cache.drawio` in [diagrams.net](https://app.diagrams.net) or the VS Code draw.io extension for the full interactive diagram.
+![Public to Private ECR Pull Through Cache](assets/public-to-private-ecr.png)
 
-```mermaid
-flowchart LR
-    subgraph WorkloadAccount["Workload Account"]
-        ECS["ECS / EKS\nWorkload"]
-        ECR_Cache["Private ECR\n(Pull Through Cache)"]
-    end
+## Scenario 2 Architecture — Private to Private
+---
 
-    subgraph PlatformAccount["Platform / Source"]
-        ECR_Source["Private ECR\n(Base Images)"]
-    end
-
-    subgraph Public["Public Registries"]
-        DockerHub["Docker Hub"]
-        ECRPublic["ECR Public"]
-    end
-
-    ECS -->|"docker pull"| ECR_Cache
-    ECR_Cache -->|"cache miss → fetch"| ECR_Source
-    ECR_Cache -->|"cache miss → fetch"| DockerHub
-    ECR_Cache -->|"cache miss → fetch"| ECRPublic
-```
+![Private to Private ECR Pull Through Cache](assets/private-to-private-ecr.png)
 
 ---
 
