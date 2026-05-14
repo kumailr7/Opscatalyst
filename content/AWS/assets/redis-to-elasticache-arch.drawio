@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- TITLE -->
+    <mxCell id="title" value="Redis Container → ElastiCache (Valkey) Migration via redis-shake"
+      style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=16;fontStyle=1;fontColor=#1a1a2e;"
+      vertex="1" parent="1">
+      <mxGeometry x="20" y="10" width="1200" height="40" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════
+         SOURCE ENVIRONMENT (On-Prem / ECS / K8s)
+    ═══════════════════════════════════════════════ -->
+    <mxCell id="src-env" value="&lt;b&gt;Source Environment&lt;/b&gt;&lt;br&gt;On-Prem / ECS / K8s"
+      style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_corporate_data_center;verticalLabelPosition=top;verticalAlign=bottom;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontStyle=1;align=center;spacingTop=25;html=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="20" y="70" width="210" height="320" as="geometry" />
+    </mxCell>
+
+    <!-- Redis Container -->
+    <mxCell id="redis-container-box" value=""
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D82C20;strokeColor=#8B1A10;arcSize=8;"
+      vertex="1" parent="1">
+      <mxGeometry x="55" y="130" width="140" height="120" as="geometry" />
+    </mxCell>
+
+    <mxCell id="redis-icon" value="&lt;font color=&quot;#ffffff&quot;&gt;&lt;b&gt;Redis 7.x&lt;/b&gt;&lt;/font&gt;"
+      style="shape=mxgraph.aws4.elasticache;fillColor=#D82C20;strokeColor=none;fontColor=#ffffff;fontStyle=1;verticalLabelPosition=bottom;verticalAlign=top;html=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="90" y="140" width="70" height="70" as="geometry" />
+    </mxCell>
+
+    <mxCell id="redis-label" value="&lt;font color=&quot;#ffffff&quot;&gt;Standalone / Cluster&lt;/font&gt;"
+      style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontColor=#ffffff;fontSize=10;"
+      vertex="1" parent="1">
+      <mxGeometry x="55" y="218" width="140" height="25" as="geometry" />
+    </mxCell>
+
+    <mxCell id="port-label" value="Port: 6379"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8d7d7;strokeColor=#D82C20;fontColor=#8B1A10;fontSize=10;"
+      vertex="1" parent="1">
+      <mxGeometry x="80" y="265" width="100" height="25" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════
+         AWS CLOUD BOUNDARY
+    ═══════════════════════════════════════════════ -->
+    <mxCell id="aws-cloud" value="&lt;b&gt;AWS Cloud&lt;/b&gt;"
+      style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;verticalLabelPosition=top;verticalAlign=bottom;fillColor=#FAFAFA;strokeColor=#232F3E;fontStyle=1;align=center;spacingTop=25;html=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="260" y="50" width="960" height="430" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════
+         VPC
+    ═══════════════════════════════════════════════ -->
+    <mxCell id="vpc" value="&lt;b&gt;VPC&lt;/b&gt; (10.0.0.0/16)"
+      style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;verticalLabelPosition=top;verticalAlign=bottom;fillColor=#E6F3FB;strokeColor=#147EBA;fontStyle=1;align=center;spacingTop=25;html=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="280" y="90" width="920" height="370" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════
+         PUBLIC SUBNET — Migration Host
+    ═══════════════════════════════════════════════ -->
+    <mxCell id="public-subnet" value="&lt;b&gt;Public Subnet&lt;/b&gt; (10.0.1.0/24)"
+      style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_public_subnet;verticalLabelPosition=top;verticalAlign=bottom;fillColor=#FDEBD0;strokeColor=#F0A30A;fontStyle=1;align=center;spacingTop=25;html=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="300" y="130" width="290" height="280" as="geometry" />
+    </mxCell>
+
+    <!-- Migration Host SG -->
+    <mxCell id="sg-migration" value="&lt;b&gt;SG: Migration Host&lt;/b&gt;"
+      style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_security_group;verticalLabelPosition=top;verticalAlign=bottom;fillColor=none;strokeColor=#DD344C;fontStyle=0;align=center;spacingTop=25;html=1;dashed=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="320" y="165" width="250" height="215" as="geometry" />
+    </mxCell>
+
+    <!-- EC2 Instance -->
+    <mxCell id="ec2-instance" value="&lt;b&gt;EC2 Migration Host&lt;/b&gt;&lt;br&gt;t3.medium"
+      style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;labelBackgroundColor=#ffffff;fillColor=#ED7100;strokeColor=none;fontStyle=0;fontColor=#333333;verticalLabelPosition=bottom;verticalAlign=top;html=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="395" y="195" width="60" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- redis-shake box -->
+    <mxCell id="redis-shake" value="&lt;b&gt;redis-shake&lt;/b&gt;&lt;br&gt;v3.x (sync mode)"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontColor=#333333;arcSize=8;"
+      vertex="1" parent="1">
+      <mxGeometry x="345" y="305" width="200" height="55" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════
+         PRIVATE SUBNET — ElastiCache
+    ═══════════════════════════════════════════════ -->
+    <mxCell id="private-subnet" value="&lt;b&gt;Private Subnet&lt;/b&gt; (10.0.2.0/24)"
+      style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_private_subnet;verticalLabelPosition=top;verticalAlign=bottom;fillColor=#E9F3E6;strokeColor=#759C3E;fontStyle=1;align=center;spacingTop=25;html=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="620" y="130" width="550" height="280" as="geometry" />
+    </mxCell>
+
+    <!-- ElastiCache SG -->
+    <mxCell id="sg-elasticache" value="&lt;b&gt;SG: ElastiCache (port 6379 TLS)&lt;/b&gt;"
+      style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_security_group;verticalLabelPosition=top;verticalAlign=bottom;fillColor=none;strokeColor=#DD344C;fontStyle=0;align=center;spacingTop=25;html=1;dashed=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="640" y="165" width="510" height="210" as="geometry" />
+    </mxCell>
+
+    <!-- ElastiCache Primary -->
+    <mxCell id="ec-primary" value="&lt;b&gt;ElastiCache Primary&lt;/b&gt;&lt;br&gt;Valkey 7.2"
+      style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elasticache;labelBackgroundColor=#ffffff;fillColor=#C7131F;strokeColor=none;fontStyle=0;fontColor=#333333;verticalLabelPosition=bottom;verticalAlign=top;html=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="700" y="200" width="60" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- ElastiCache Replica -->
+    <mxCell id="ec-replica" value="&lt;b&gt;ElastiCache Replica&lt;/b&gt;&lt;br&gt;Valkey 7.2 (Multi-AZ)"
+      style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elasticache;labelBackgroundColor=#ffffff;fillColor=#C7131F;strokeColor=none;fontStyle=0;fontColor=#333333;verticalLabelPosition=bottom;verticalAlign=top;html=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="1000" y="200" width="60" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Replication between primary and replica -->
+    <mxCell id="ec-replication" value="Auto Replication"
+      style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;endArrow=open;endFill=0;strokeColor=#C7131F;fontColor=#C7131F;labelBackgroundColor=#ffffff;fontSize=10;"
+      edge="1" source="ec-primary" target="ec-replica" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Valkey badge on primary -->
+    <mxCell id="valkey-badge" value="Valkey"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0A3D62;strokeColor=#0A3D62;fontColor=#ffffff;fontSize=10;fontStyle=1;arcSize=50;"
+      vertex="1" parent="1">
+      <mxGeometry x="706" y="275" width="50" height="20" as="geometry" />
+    </mxCell>
+
+    <!-- CloudWatch -->
+    <mxCell id="cloudwatch" value="&lt;b&gt;CloudWatch&lt;/b&gt;&lt;br&gt;Metrics &amp; Alarms"
+      style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch;labelBackgroundColor=#ffffff;fillColor=#E7157B;strokeColor=none;fontColor=#333333;verticalLabelPosition=bottom;verticalAlign=top;html=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="1100" y="340" width="60" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════
+         APPLICATION (post-cutover)
+    ═══════════════════════════════════════════════ -->
+    <mxCell id="application" value="&lt;b&gt;Application&lt;/b&gt;&lt;br&gt;(rediss:// endpoint)"
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#333333;arcSize=8;"
+      vertex="1" parent="1">
+      <mxGeometry x="700" y="460" width="180" height="55" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════
+         FLOW ARROWS
+    ═══════════════════════════════════════════════ -->
+
+    <!-- Arrow 1: Redis Container → EC2 (PSYNC) -->
+    <mxCell id="flow-1" value="&lt;b&gt;① PSYNC&lt;/b&gt;&lt;br&gt;RDB snapshot + AOF stream"
+      style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#D82C20;fontColor=#D82C20;fontStyle=0;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;rounded=1;endArrow=block;endFill=1;"
+      edge="1" source="redis-container-box" target="ec2-instance" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="240" y="190" />
+          <mxPoint x="240" y="225" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Arrow 2: redis-shake → ElastiCache Primary (write commands over TLS) -->
+    <mxCell id="flow-2" value="&lt;b&gt;② Write commands (TLS 6379)&lt;/b&gt;&lt;br&gt;Incremental sync (AOF)"
+      style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#147EBA;fontColor=#147EBA;fontStyle=0;labelBackgroundColor=#ffffff;rounded=1;endArrow=block;endFill=1;"
+      edge="1" source="redis-shake" target="ec-primary" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Arrow 3: Application → ElastiCache (cutover) -->
+    <mxCell id="flow-3" value="&lt;b&gt;③ Cutover&lt;/b&gt; (update conn string)"
+      style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#1B8C2E;fontColor=#1B8C2E;fontStyle=0;labelBackgroundColor=#ffffff;dashed=1;rounded=1;endArrow=block;endFill=1;"
+      edge="1" source="application" target="ec-primary" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Arrow: CloudWatch monitors ElastiCache -->
+    <mxCell id="cw-monitor" value="Monitors"
+      style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;endArrow=open;endFill=0;strokeColor=#E7157B;fontColor=#E7157B;fontSize=10;labelBackgroundColor=#ffffff;"
+      edge="1" source="cloudwatch" target="ec-primary" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════
+         LEGEND
+    ═══════════════════════════════════════════════ -->
+    <mxCell id="legend-box" value=""
+      style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f9f9f9;strokeColor=#cccccc;arcSize=5;"
+      vertex="1" parent="1">
+      <mxGeometry x="20" y="415" width="230" height="120" as="geometry" />
+    </mxCell>
+
+    <mxCell id="legend-title" value="&lt;b&gt;Migration Flow&lt;/b&gt;"
+      style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontStyle=1;"
+      vertex="1" parent="1">
+      <mxGeometry x="30" y="420" width="210" height="25" as="geometry" />
+    </mxCell>
+
+    <mxCell id="legend-1" value="① Full RDB snapshot transfer"
+      style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#D82C20;"
+      vertex="1" parent="1">
+      <mxGeometry x="30" y="445" width="210" height="22" as="geometry" />
+    </mxCell>
+
+    <mxCell id="legend-2" value="② Live incremental AOF replication"
+      style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#147EBA;"
+      vertex="1" parent="1">
+      <mxGeometry x="30" y="467" width="210" height="22" as="geometry" />
+    </mxCell>
+
+    <mxCell id="legend-3" value="③ App cutover (30–60 sec window)"
+      style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#1B8C2E;"
+      vertex="1" parent="1">
+      <mxGeometry x="30" y="489" width="210" height="22" as="geometry" />
+    </mxCell>
+
+    <mxCell id="legend-4" value="-- Automatic replication / monitoring"
+      style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontColor=#888888;fontSize=10;"
+      vertex="1" parent="1">
+      <mxGeometry x="30" y="511" width="210" height="18" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>

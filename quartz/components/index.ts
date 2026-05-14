@@ -20,10 +20,8 @@ import MobileOnly from "./MobileOnly"
 import RecentNotes from "./RecentNotes"
 import Breadcrumbs from "./Breadcrumbs"
 import Comments from "./Comments"
+import Navigation from "./Navigation"
 import Author from "./Author"
-import NavBar from "./NavBar"
-import BentoHome from "./BentoHome"
-import AuroraBackground from "./AuroraBackground"
 
 export {
   ArticleTitle,
@@ -48,8 +46,6 @@ export {
   NotFound,
   Breadcrumbs,
   Comments,
+  Navigation,
   Author,
-  NavBar,
-  BentoHome,
-  AuroraBackground,
 }

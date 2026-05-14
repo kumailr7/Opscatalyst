@@ -5,14 +5,18 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [
-    Component.NavBar({ githubUrl: "https://github.com/kumailr7/Devops-Dojo" }),
-    Component.Darkmode(),
-    Component.AuroraBackground(),
+    Component.Navigation({
+      links: {
+        Articles: "/",
+        "About Me": "/About Me",
+      },
+    }),
   ],
-  afterBody: [],
+  afterBody: [Component.Comments()],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/kumailr7/Devops-Dojo"
+      GitHub: "https://github.com/kumailr7/Devops-Dojo",
+      LinkedIn: "https://linkedin.com/in/kumail-rizvi",
     },
   }),
 }
@@ -20,43 +24,65 @@ export const sharedPageComponents: SharedLayout = {
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
-    Component.BentoHome(),
     Component.Breadcrumbs(),
     Component.ArticleTitle(),
-    Component.ContentMeta({showReadingTime:true}),
+    Component.ContentMeta({ showReadingTime: true }),
     Component.TagList(),
+    Component.Author(),
   ],
   left: [
+    Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
-    Component.DesktopOnly(Component.RecentNotes({ linkToMore: "tags/" , limit: 3, showTags: false })),
+    Component.MobileOnly(Component.Darkmode()),
     Component.DesktopOnly(
-      Component.Explorer({
-        sortFn: (a, b) => {
-          if ((!a.file && !b.file) || (a.file && b.file)) {
-            return a.displayName.localeCompare(b.displayName)
-          }
-          // folders first, loose files (About Me, Readme) last
-          if (a.file && !b.file) return 1
-          return -1
-        },
-      }),
+      Component.RecentNotes({ linkToMore: "tags/", limit: 3, showTags: false }),
     ),
+    Component.DesktopOnly(Component.Explorer()),
   ],
   right: [
+    Component.DesktopOnly(Component.Darkmode()),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
     Component.Graph(),
   ],
 }
 
-// components for pages that display lists of pages  (e.g. tags or folders)
-export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
+// custom homepage layout
+export const homepagePageLayout: PageLayout = {
+  beforeBody: [],
   left: [
+    Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
+    Component.MobileOnly(Component.Darkmode()),
     Component.DesktopOnly(Component.Explorer()),
   ],
   right: [],
 }
+
+// components for pages that display lists of pages  (e.g. tags or folders)
+export const defaultListPageLayout: PageLayout = {
+  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
+  left: [
+    Component.PageTitle(),
+    Component.MobileOnly(Component.Spacer()),
+    Component.Search(),
+    Component.Darkmode(),
+    Component.DesktopOnly(Component.Explorer()),
+  ],
+  right: [],
+}
+
+Component.Explorer({
+  sortFn: (a, b) => {
+    if ((!a.file && !b.file) || (a.file && b.file)) {
+      return a.displayName.localeCompare(b.displayName)
+    }
+    if (a.file && !b.file) {
+      return -1
+    } else {
+      return 1
+    }
+  },
+})

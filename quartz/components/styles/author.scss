@@ -1,59 +1,76 @@
 div.author {
   display: flex;
-  
+  flex-wrap: wrap;
+  gap: 1rem;
+
   & > p {
     color: var(--darkgray);
     font-weight: bold;
-
     display: flex;
     align-content: bottom;
   }
-  
+
   & > * {
-    margin: 0.2rem
+    margin: 0.2rem;
   }
 }
+
 div.authorWLink {
   cursor: pointer;
-  border-radius: 0.5rem;
-  background-color: var(--highlight);
-  transition:  0.2s ease;
+  border-radius: 0.25rem;
+  background-color: rgba(255, 180, 170, 0.1);
+  border: 1px solid rgba(255, 180, 170, 0.2);
+  transition: all 0.2s ease;
   width: fit-content;
   overflow: hidden;
-  color: var(--darkgray);
-  
+  color: #e5e2e3;
 
   & > a {
     word-wrap: normal;
     display: flex;
     align-items: center;
-    padding-right: 3px;
+    padding: 0.5rem 0.75rem;
+    text-decoration: none;
+    color: inherit;
 
     & > img {
-      width:2rem;
-      border-radius: 25%;
-      border-top-right-radius: 0%;  /* Adjust the radius as needed */
-      border-bottom-right-radius: 0%;
-      margin-right: 3px;
-      transition: border-radius 0.2 ease;
-
-      // border: 1px solid var(--secondary);
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.25rem;
+      margin-right: 0.75rem;
+      object-fit: cover;
+      border: 1px solid rgba(255, 180, 170, 0.3);
     }
 
-    & > span {
-      font-size: 10px;
+    & > .author-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    & > .author-info .author-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #e5e2e3;
+    }
+
+    & > .author-info .author-role {
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: #ffb4aa;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
   }
 }
 
 div.authorWLink:hover {
-  & > a {
+  background-color: rgba(255, 180, 170, 0.15);
+  border-color: rgba(255, 180, 170, 0.4);
 
-    & > span {
-      color: var(--tertiary) !important;
-      transition:  0.2s ease;
-      // color: var(--primary) !important;
-    } 
+  & > a {
+    & > .author-info .author-name {
+      color: #ffb4aa;
+    }
   }
 }
 
@@ -63,43 +80,41 @@ div.hiddenAuthors {
 
 div.hiddenAuthors::before {
   content: "...";
-  padding: 0 0.2rem;
-  border-radius: 0.5rem;
-  // background-color: var(--lightgray);
-  color: var(--secondary);
-  
+  padding: 0 0.5rem;
+  border-radius: 0.25rem;
+  color: #ffb4aa;
   font-size: larger;
+  font-weight: bold;
 }
+
 div.hiddenAuthors:hover .hiddenAuthorsContainer {
-  // visibility: visible;
   opacity: 1;
-  transition:  0.2s ease;
+  transition: 0.2s ease;
 }
+
 div.hiddenAuthorsContainer {
-  // visibility: hidden;
   opacity: 0;
-  z-index: 1;
+  z-index: 100;
   position: absolute;
   width: max-content;
   left: 50%;
   top: 100%;
-  
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0.4rem;
-  
-  border-radius: 	0.5rem;
-  box-shadow: 6px 6px 36px color-mix(in srgb,var(--gray)1%,transparent);
-  border: 1px solid var(--lightgray);
-  background-color: var(--light);
-  
-  transition:  0.2s ease;
+  padding: 0.5rem;
+
+  border-radius: 0.25rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(91, 64, 61, 0.3);
+  background-color: #1c1b1c;
+
+  transition: 0.2s ease;
 
   & > * {
     justify-self: center;
     margin: 0.3rem;
   }
-  
 }
