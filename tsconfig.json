@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["esnext", "DOM", "DOM.Iterable"],
+    "lib": [
+      "esnext",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "experimentalDecorators": true,
     "module": "esnext",
     "target": "esnext",
@@ -12,10 +16,26 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact"
+    "jsx": "preserve",
+    "allowJs": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["**/*.ts", "**/*.tsx", "./package.json"],
-  "exclude": ["build/**/*.d.ts"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "./package.json",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "build/**/*.d.ts",
+    "quartz",
+    "quartz.layout.ts",
+    "quartz.config.ts"
+  ]
 }
-
