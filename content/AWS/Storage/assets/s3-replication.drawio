@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" version="24.0.0">
+  <diagram name="S3 Replication Architecture" id="s3-replication-arch">
+    <mxGraphModel dx="1422" dy="762" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ====== AWS ACCOUNT GROUP ====== -->
+        <mxCell id="account" value="AWS Account"
+          style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_account;grStroke=0;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#F5F5F5;strokeColor=#232F3E;fontStyle=1;fontSize=16;"
+          vertex="1" parent="1">
+          <mxGeometry x="30" y="20" width="1780" height="960" as="geometry" />
+        </mxCell>
+
+        <!-- ====== SOURCE REGION ====== -->
+        <mxCell id="src-region" value="Region: us-east-1 (Source)"
+          style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;grStroke=0;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#E8F4FD;strokeColor=#147EBA;fontStyle=1;fontSize=13;"
+          vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="600" height="280" as="geometry" />
+        </mxCell>
+
+        <!-- S3 Source Bucket — label BELOW icon -->
+        <mxCell id="src-bucket" value="Source Bucket&#xa;(Versioning: ON)"
+          style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#7AA116;labelBackgroundColor=none;align=center;html=1;fontSize=12;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;verticalLabelPosition=bottom;verticalAlign=top;labelPosition=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="120" y="160" width="70" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Replication Rule -->
+        <mxCell id="rep-rule" value="Replication Rule&#xa;(prefix / tag filter)"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;fontStyle=0;align=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="265" y="175" width="160" height="44" as="geometry" />
+        </mxCell>
+
+        <!-- IAM Role — label BELOW icon -->
+        <mxCell id="iam-role" value="IAM Role&#xa;(s3:ReplicateObject)"
+          style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#DD344C;labelBackgroundColor=none;align=center;html=1;fontSize=12;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.role;verticalLabelPosition=bottom;verticalAlign=top;labelPosition=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="510" y="160" width="70" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: Source Bucket → Rule -->
+        <mxCell id="e-src-rule" value="new objects"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#1C6EA4;strokeWidth=2;fontSize=11;labelBackgroundColor=none;"
+          edge="1" parent="1" source="src-bucket" target="rep-rule">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: Rule → IAM Role -->
+        <mxCell id="e-rule-iam" value=""
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#1C6EA4;strokeWidth=2;"
+          edge="1" parent="1" source="rep-rule" target="iam-role">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ====== CRR DESTINATION REGION ====== -->
+        <mxCell id="crr-region" value="Region: eu-west-1 (CRR Destination)"
+          style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;grStroke=0;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#FDF6E3;strokeColor=#D6A520;fontStyle=1;fontSize=13;"
+          vertex="1" parent="1">
+          <mxGeometry x="750" y="80" width="1020" height="220" as="geometry" />
+        </mxCell>
+
+        <!-- CRR Destination Bucket — label BELOW icon -->
+        <mxCell id="crr-bucket" value="Destination Bucket&#xa;(Versioning: ON)"
+          style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#7AA116;labelBackgroundColor=none;align=center;html=1;fontSize=12;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;verticalLabelPosition=bottom;verticalAlign=top;labelPosition=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="1020" y="130" width="70" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- S3 RTC Badge -->
+        <mxCell id="rtc-badge" value="S3 Replication Time Control (S3 RTC)&#xa;optional — 99.99% replicated within 15 min"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;fontStyle=2;align=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="1180" y="120" width="540" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: IAM Role → CRR Bucket -->
+        <mxCell id="e-crr" value="CRR (async)"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#E67E22;strokeWidth=3;fontStyle=1;fontSize=12;labelBackgroundColor=none;"
+          edge="1" parent="1" source="iam-role" target="crr-bucket">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: CRR Bucket → Source Bucket (Bi-directional) -->
+        <mxCell id="e-bidir" value="Bi-directional (Two-Way Sync)"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;strokeColor=#9C27B0;strokeWidth=2;dashed=1;fontSize=11;fontStyle=2;labelBackgroundColor=none;"
+          edge="1" parent="1" source="crr-bucket" target="src-bucket">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1055" y="55" />
+              <mxPoint x="155" y="55" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ====== SRR DESTINATION REGION ====== -->
+        <mxCell id="srr-region" value="Region: us-east-1 (SRR Destination — same region)"
+          style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;grStroke=0;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#E8F5E9;strokeColor=#43A047;fontStyle=1;fontSize=13;"
+          vertex="1" parent="1">
+          <mxGeometry x="750" y="380" width="1020" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- SRR Destination Bucket — label BELOW icon -->
+        <mxCell id="srr-bucket" value="Destination Bucket&#xa;(Versioning: ON)"
+          style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#7AA116;labelBackgroundColor=none;align=center;html=1;fontSize=12;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;verticalLabelPosition=bottom;verticalAlign=top;labelPosition=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="1020" y="430" width="70" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: IAM Role → SRR Bucket -->
+        <mxCell id="e-srr" value="SRR (async)"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#43A047;strokeWidth=3;fontStyle=1;fontSize=12;labelBackgroundColor=none;"
+          edge="1" parent="1" source="iam-role" target="srr-bucket">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="545" y="480" />
+              <mxPoint x="1020" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ====== ON-DEMAND BATCH REPLICATION ====== -->
+        <mxCell id="batch-group" value="On-Demand Replication"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#8E24AA;fontStyle=1;fontSize=13;verticalAlign=top;align=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="60" y="450" width="600" height="200" as="geometry" />
+        </mxCell>
+
+        <!-- S3 Batch Operations — label BELOW icon -->
+        <mxCell id="batch-ops" value="S3 Batch Operations"
+          style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#7AA116;labelBackgroundColor=none;align=center;html=1;fontSize=12;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;verticalLabelPosition=bottom;verticalAlign=top;labelPosition=center;"
+          vertex="1" parent="1">
+          <mxGeometry x="120" y="510" width="70" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Batch desc text -->
+        <mxCell id="batch-desc" value="• Replicate existing objects (pre-rule)&#xa;• Retry FAILED replications&#xa;• Replicate replicas of replicas"
+          style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;"
+          vertex="1" parent="1">
+          <mxGeometry x="230" y="510" width="400" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: Batch Ops → CRR Bucket -->
+        <mxCell id="e-batch" value="Existing / Failed objects"
+          style="edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;strokeColor=#8E24AA;strokeWidth=2;dashed=1;fontStyle=1;fontSize=11;labelBackgroundColor=none;"
+          edge="1" parent="1" source="batch-ops" target="crr-bucket">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ====== LEGEND ====== -->
+        <mxCell id="legend-bg" value=""
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#CCCCCC;fontSize=11;"
+          vertex="1" parent="1">
+          <mxGeometry x="750" y="660" width="1050" height="260" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-title" value="Legend"
+          style="text;html=1;align=left;fontStyle=1;fontSize=14;strokeColor=none;fillColor=none;"
+          vertex="1" parent="1">
+          <mxGeometry x="780" y="675" width="100" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg-crr" value="━━  CRR — Cross-Region Replication (different AWS Region)"
+          style="text;html=1;align=left;fontSize=12;strokeColor=none;fillColor=none;fontColor=#E67E22;fontStyle=1;"
+          vertex="1" parent="1">
+          <mxGeometry x="780" y="705" width="980" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg-srr" value="━━  SRR — Same-Region Replication (same AWS Region)"
+          style="text;html=1;align=left;fontSize=12;strokeColor=none;fillColor=none;fontColor=#43A047;fontStyle=1;"
+          vertex="1" parent="1">
+          <mxGeometry x="780" y="735" width="980" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg-bidir" value="╌╌  Bi-directional / Two-Way Replication (active-active)"
+          style="text;html=1;align=left;fontSize=12;strokeColor=none;fillColor=none;fontColor=#9C27B0;fontStyle=2;"
+          vertex="1" parent="1">
+          <mxGeometry x="780" y="765" width="980" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg-batch" value="╌╌  Batch Replication — on-demand, for existing / failed objects"
+          style="text;html=1;align=left;fontSize=12;strokeColor=none;fillColor=none;fontColor=#8E24AA;fontStyle=1;"
+          vertex="1" parent="1">
+          <mxGeometry x="780" y="795" width="980" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg-rtc" value="     S3 RTC — optional SLA: 99.99% of objects replicated within 15 minutes"
+          style="text;html=1;align=left;fontSize=12;strokeColor=none;fillColor=none;fontColor=#1565C0;fontStyle=2;"
+          vertex="1" parent="1">
+          <mxGeometry x="780" y="825" width="980" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg-icons" value="     Green S3 icon = S3 Bucket    |    Red icon = IAM Role"
+          style="text;html=1;align=left;fontSize=12;strokeColor=none;fillColor=none;fontColor=#555555;fontStyle=0;"
+          vertex="1" parent="1">
+          <mxGeometry x="780" y="860" width="980" height="24" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
