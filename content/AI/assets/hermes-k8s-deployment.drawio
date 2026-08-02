@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" version="21.0.0">
+  <diagram name="hermes namespace — Kubernetes object inventory" id="hermes-k8s-deploy">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ====== GITOPS SOURCE GROUP ====== -->
+        <mxCell id="gitops-group" value="GitOps source" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E6F2F8;strokeColor=#147EBA;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="480" y="40" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="github-node" value="GitHub&#xa;Elysium-homelab.git&#xa;kubernetes/hermes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#24292E;fontColor=#ffffff;strokeColor=none;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="520" y="80" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ArgoCD -->
+        <mxCell id="argocd-node" value="ArgoCD Application: hermes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EF7B4D;fontColor=#ffffff;strokeColor=none;align=center;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="220" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="e-github-argocd" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#666666;" edge="1" parent="1" source="github-node" target="argocd-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl-watches" value="watches" style="text;html=1;fontSize=10;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="660" y="180" width="60" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- ====== NAMESPACE GROUP ====== -->
+        <mxCell id="ns-group" value="namespace: hermes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF3FF;strokeColor=#326CE5;verticalAlign=top;align=left;spacingLeft=10;spacingTop=10;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="80" y="320" width="1180" height="1200" as="geometry" />
+        </mxCell>
+
+        <!-- Secret -->
+        <mxCell id="secret-node" value="Secret: hermes-secrets&#xa;7 keys (Telegram, Notion,&#xa;Claude OAuth, dashboard, API)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#326CE5;fontColor=#ffffff;strokeColor=none;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="120" y="400" width="180" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Deployment -->
+        <mxCell id="deploy-node" value="Deployment: hermes&#xa;replicas: 1, strategy: Recreate&#xa;containers: hermes, herdr-server&#xa;+ 6 init containers" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#326CE5;fontColor=#ffffff;strokeColor=none;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="360" y="400" width="220" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- ConfigMaps group -->
+        <mxCell id="cm-group" value="ConfigMaps" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5EB;strokeColor=#999966;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="640" y="380" width="580" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="cm1-node" value="hermes-config&#xa;(model routing)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5B8AE6;fontColor=#ffffff;strokeColor=none;align=center;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="660" y="420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cm2-node" value="hermes-herdr-config&#xa;(session persistence)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5B8AE6;fontColor=#ffffff;strokeColor=none;align=center;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="800" y="420" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cm3-node" value="hermes-agents-md&#xa;(agent instructions)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5B8AE6;fontColor=#ffffff;strokeColor=none;align=center;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="950" y="420" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cm4-node" value="hermes-gai-conf&#xa;(IPv4/IPv6 order)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5B8AE6;fontColor=#ffffff;strokeColor=none;align=center;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="420" width="110" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Service -->
+        <mxCell id="svc-node" value="Service: hermes (ClusterIP)&#xa;8642/TCP api, 9119/TCP dashboard" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#326CE5;fontColor=#ffffff;strokeColor=none;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="880" y="600" width="220" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Pod group -->
+        <mxCell id="pod-group" value="Pod" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5EB;strokeColor=#999966;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="360" y="600" width="260" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="pod-node" value="pod/hermes&#xa;containers: hermes, herdr-server" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#326CE5;fontColor=#ffffff;strokeColor=none;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="390" y="640" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- PVC -->
+        <mxCell id="pvc-node" value="PVC: hermes-data&#xa;5Gi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#326CE5;fontColor=#ffffff;strokeColor=none;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="800" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ====== EDGES ====== -->
+        <mxCell id="e-argocd-deploy" value="syncs" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#EF7B4D;fontColor=#EF7B4D;fontSize=10;" edge="1" parent="1" source="argocd-node" target="deploy-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-argocd-secret" value="syncs" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#EF7B4D;fontColor=#EF7B4D;fontSize=10;" edge="1" parent="1" source="argocd-node" target="secret-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-argocd-svc" value="syncs" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#EF7B4D;fontColor=#EF7B4D;fontSize=10;" edge="1" parent="1" source="argocd-node" target="svc-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-argocd-cm" value="syncs" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#EF7B4D;fontColor=#EF7B4D;fontSize=10;" edge="1" parent="1" source="argocd-node" target="cm-group">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e-deploy-pod" value="creates" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#666666;fontColor=#666666;fontSize=10;" edge="1" parent="1" source="deploy-node" target="pod-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-deploy-svc" value="fronted by" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#666666;fontColor=#666666;fontSize=10;" edge="1" parent="1" source="deploy-node" target="svc-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-pod-pvc" value="mounts" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#666666;fontColor=#666666;fontSize=10;" edge="1" parent="1" source="pod-node" target="pvc-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-secret-pod" value="injects env into" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#666666;fontColor=#666666;fontSize=10;" edge="1" parent="1" source="secret-node" target="pod-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-cm-pod" value="seeds config into" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#666666;fontColor=#666666;fontSize=10;" edge="1" parent="1" source="cm-group" target="pod-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

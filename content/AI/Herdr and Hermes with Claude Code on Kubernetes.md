@@ -254,30 +254,7 @@ Nothing is `kubectl apply`'d by hand — the Deployment, ConfigMaps, PVC, and Se
 
 The full object inventory in the namespace:
 
-```mermaid
-flowchart TB
-    subgraph ns["namespace: hermes"]
-        DEPLOY["Deployment: hermes<br/>replicas: 1, strategy: Recreate<br/>containers: hermes, herdr-server<br/>+ 6 init containers"]
-        SVC["Service: hermes (ClusterIP)<br/>8642/TCP (api), 9119/TCP (dashboard)"]
-        PVC2["PVC: hermes-data — 5Gi"]
-        SEC["Secret: hermes-secrets<br/>7 keys (Telegram, Notion, Claude OAuth, dashboard, API)"]
-        CM1["ConfigMap: hermes-config<br/>config.yaml — model routing"]
-        CM2["ConfigMap: hermes-herdr-config<br/>config.toml — session persistence"]
-        CM3["ConfigMap: hermes-agents-md<br/>AGENTS.md — agent instructions"]
-        CM4["ConfigMap: hermes-gai-conf<br/>gai.conf — IPv6/IPv4 resolution order"]
-    end
-    ARGOCD["ArgoCD Application: hermes<br/>source: Elysium-homelab.git/kubernetes/hermes"]
-
-    ARGOCD -- "syncs" --> DEPLOY
-    ARGOCD -- "syncs" --> SVC
-    ARGOCD -- "syncs" --> SEC
-    ARGOCD -- "syncs" --> CM1
-    ARGOCD -- "syncs" --> CM2
-    ARGOCD -- "syncs" --> CM3
-    ARGOCD -- "syncs" --> CM4
-    DEPLOY --> PVC2
-    DEPLOY --> SVC
-```
+![[hermes-k8s-deployment.png]]
 
 A few deployment-level details worth calling out:
 
