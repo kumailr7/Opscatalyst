@@ -45,7 +45,7 @@ async function main() {
   const today = new Date()
   const monthAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000)
 
-  const params = new URLSearchParams({
+  const query = new URLSearchParams({
     module: "API",
     method: "Actions.getPageUrls",
     idSite: SITE_ID,
@@ -53,11 +53,17 @@ async function main() {
     date: `${isoDate(monthAgo)},${isoDate(today)}`,
     format: "JSON",
     flat: "1",
-    token_auth: token,
   })
 
+  // Matomo rejects token_auth passed via URL query string for security;
+  // it must be sent in the POST body instead.
+  const body = new URLSearchParams({ token_auth: token })
+
   try {
-    const res = await fetch(`${MATOMO_HOST}/index.php?${params.toString()}`, {
+    const res = await fetch(`${MATOMO_HOST}/index.php?${query.toString()}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: body.toString(),
       signal: AbortSignal.timeout(15000),
     })
     if (!res.ok) {
