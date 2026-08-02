@@ -21,22 +21,12 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: DEBUG Matomo connectivity
-        run: |
-          echo "runner egress IP:"
-          curl -sS https://api.ipify.org || true
-          echo ""
-          echo "unauthenticated getMatomoVersion:"
-          curl -sS -o /tmp/out.txt -w "HTTP %{http_code}\n" "https://analytics.devops-dojo.ninja/index.php?module=API&method=API.getMatomoVersion&format=JSON"
-          cat /tmp/out.txt
-          echo ""
-          echo "matomo.js static asset:"
-          curl -sS -o /dev/null -w "HTTP %{http_code}\n" "https://analytics.devops-dojo.ninja/matomo.js"
-
       - name: Fetch Matomo most-read data
-        run: node scripts/fetch-most-read.mjs
-        env:
-          MATOMO_API_TOKEN: ${{ secrets.MATOMO_API_TOKEN }}
+        run: |
+          mkdir -p quartz/static
+          curl -sS --max-time 10 -o quartz/static/most-read.json \
+            https://analytics.devops-dojo.ninja/most-read.json \
+            || echo "[]" > quartz/static/most-read.json
 
       - name: Build Quartz
         run: npx quartz build
