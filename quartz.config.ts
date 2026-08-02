@@ -11,10 +11,7 @@ const config: QuartzConfig = {
     pageTitle: "DEVOPS-DOJO",
     enableSPA: false,
     enablePopovers: true,
-    analytics: {
-      provider: "google",
-      tagId: "G-H0G1YKHC31"
-    },
+    analytics: null,
     baseUrl: "devops-dojo.ninja",
     ignorePatterns: ["private", "Templates", ".obsidian", "Personal", "Archive", "Omnivore", "**/*.excalidraw.md", "rawNotes"],
     defaultDateType: "modified",

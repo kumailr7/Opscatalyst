@@ -46,7 +46,7 @@ accounts:
 ### Example 2: Filter resources
 Prevent some resources from be removed
 ```yaml /<YOUR_ACCOUNT_NUMBER>/ {9-11}
-# Achieve this:  ap-southeast-1 - ACMCertificate - arn:aws:acm:ap-southeast-1:106330972960:certificate/5212c31a-94f1-4dc9-80a8-b72d8d6b2054 - [DomainName: "vault.yxy.ninja"] - filtered by config
+# Achieve this:  ap-southeast-1 - ACMCertificate - arn:aws:acm:ap-southeast-1:106330972960:certificate/5212c31a-94f1-4dc9-80a8-b72d8d6b2054 - [DomainName: "vault.devops-dojo.ninja"] - filtered by config
 
 regions:
   - "ap-southeast-1"
