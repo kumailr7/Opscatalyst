@@ -44,44 +44,7 @@ I wanted three things:
 
 At the center of this is a single Kubernetes Deployment (`hermes`, in the `hermes` namespace) running **two containers that share a persistent volume**:
 
-```mermaid
-flowchart TB
-    subgraph phone["Your Phone"]
-        TG["Telegram App"]
-    end
-
-    subgraph pod["hermes namespace — pod/hermes (Kubernetes)"]
-        subgraph containers["Two containers, one shared PVC (/opt/data)"]
-            HERMES["hermes container<br/>hermes gateway run<br/>ports: 8642 (API), 9119 (dashboard)"]
-            HERDR["herdr-server container<br/>herdr server (sidecar)"]
-        end
-        PVC[("PVC: hermes-data (5Gi)<br/>sessions, config, installed tools")]
-        SECRETS["Secret: hermes-secrets<br/>TELEGRAM_BOT_TOKEN, TELEGRAM_ALLOWED_USERS,<br/>NOTION_API_KEY, CLAUDE_CODE_OAUTH_TOKEN,<br/>API_SERVER_KEY, DASHBOARD creds"]
-    end
-
-    subgraph claude["Claude Code (installed at pod boot)"]
-        CC["claude CLI<br/>authenticated via OAuth token"]
-    end
-
-    subgraph external["External services"]
-        ANTHROPIC["Anthropic API"]
-        NOTION["Notion — 'Agents Kanban' board"]
-        GATEWAY["agentgateway-ai<br/>(agentgateway-system namespace)"]
-    end
-
-    TG -- "message" --> HERMES
-    HERMES -- "reads AGENTS.md context" --> HERMES
-    HERMES -- "spawns/attaches a named session" --> HERDR
-    HERDR -- "runs inside" --> CC
-    CC -- "model calls (OAuth)" --> ANTHROPIC
-    HERMES -- "own reasoning model" --> GATEWAY
-    HERMES -- "ticket read/write" --> NOTION
-    SECRETS -.-> HERMES
-    SECRETS -.-> HERDR
-    HERDR -.-> PVC
-    HERMES -.-> PVC
-    HERMES -. "status/results" .-> TG
-```
+![[hermes-pipeline.png]]
 
 Two things worth calling out immediately, because they trip people up:
 

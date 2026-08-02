@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" version="21.0.0">
+  <diagram name="Herdr + Hermes + Claude Code — Full Pipeline" id="hermes-pipeline">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ====== HERMES NAMESPACE GROUP ====== -->
+        <mxCell id="ns-group" value="hermes namespace (Kubernetes pod)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF3FF;strokeColor=#326CE5;verticalAlign=top;align=left;spacingLeft=10;spacingTop=10;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="680" height="320" as="geometry" />
+        </mxCell>
+
+        <mxCell id="secret-node" value="Secret: hermes-secrets&#xa;Telegram, Notion, Claude OAuth,&#xa;API key, dashboard creds" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#326CE5;fontColor=#ffffff;strokeColor=none;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="70" y="110" width="170" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="containers-group" value="two containers, one shared PVC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5EB;strokeColor=#999966;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="280" y="90" width="340" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="hermes-node" value="hermes container&#xa;hermes gateway run&#xa;8642 api / 9119 dashboard" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#326CE5;fontColor=#ffffff;strokeColor=none;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="300" y="130" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="herdr-node" value="herdr-server container&#xa;herdr server (sidecar)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#326CE5;fontColor=#ffffff;strokeColor=none;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="480" y="130" width="130" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pvc-node" value="PVC: hermes-data&#xa;5Gi — sessions, config, tools" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#326CE5;fontColor=#ffffff;strokeColor=none;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="640" y="110" width="60" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- ====== PHONE ====== -->
+        <mxCell id="phone-group" value="Your Phone" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF3FF;strokeColor=#326CE5;verticalAlign=top;align=left;spacingLeft=10;spacingTop=10;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="280" y="420" width="160" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="telegram-node" value="Telegram App" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2AABEE;fontColor=#ffffff;strokeColor=none;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="310" y="460" width="100" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ====== CLAUDE CODE ====== -->
+        <mxCell id="claude-group" value="Claude Code (installed at pod boot)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF3FF;strokeColor=#326CE5;verticalAlign=top;align=left;spacingLeft=10;spacingTop=10;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="500" y="420" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="claude-node" value="claude CLI&#xa;OAuth token" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D97757;fontColor=#ffffff;strokeColor=none;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="530" y="460" width="140" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ====== EXTERNAL SERVICES ====== -->
+        <mxCell id="ext-group" value="External services" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EAF3FF;strokeColor=#326CE5;verticalAlign=top;align=left;spacingLeft=10;spacingTop=10;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="800" y="80" width="220" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="anthropic-node" value="Anthropic API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D97757;fontColor=#ffffff;strokeColor=none;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="830" y="130" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="notion-node" value="Notion&#xa;'Agents Kanban' board" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#ffffff;strokeColor=none;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="830" y="280" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="gateway-node" value="agentgateway-ai&#xa;(agentgateway-system ns)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5B8AE6;fontColor=#ffffff;strokeColor=none;align=center;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="830" y="410" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- ====== EDGES ====== -->
+        <mxCell id="e-phone-hermes" value="message" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#326CE5;fontColor=#326CE5;fontSize=10;" edge="1" parent="1" source="telegram-node" target="hermes-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-hermes-herdr" value="spawns/attaches session" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#666666;fontColor=#666666;fontSize=10;" edge="1" parent="1" source="hermes-node" target="herdr-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-herdr-claude" value="runs inside" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#666666;fontColor=#666666;fontSize=10;" edge="1" parent="1" source="herdr-node" target="claude-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-claude-anthropic" value="model calls (OAuth)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#D97757;fontColor=#D97757;fontSize=10;" edge="1" parent="1" source="claude-node" target="anthropic-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-hermes-gateway" value="own reasoning model" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#5B8AE6;fontColor=#5B8AE6;fontSize=10;" edge="1" parent="1" source="hermes-node" target="gateway-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-hermes-notion" value="ticket read/write" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#5B8AE6;fontColor=#5B8AE6;fontSize=10;" edge="1" parent="1" source="hermes-node" target="notion-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-secret-hermes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#999999;" edge="1" parent="1" source="secret-node" target="hermes-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-secret-herdr" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#999999;" edge="1" parent="1" source="secret-node" target="herdr-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-hermes-pvc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#999999;" edge="1" parent="1" source="hermes-node" target="pvc-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-herdr-pvc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#999999;" edge="1" parent="1" source="herdr-node" target="pvc-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-hermes-phone" value="status/results" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#70B02B;fontColor=#70B02B;fontSize=10;" edge="1" parent="1" source="hermes-node" target="telegram-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
