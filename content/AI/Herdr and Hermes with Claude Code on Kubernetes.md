@@ -80,7 +80,7 @@ flowchart TB
     SECRETS -.-> HERDR
     HERDR -.-> PVC
     HERMES -.-> PVC
-    HERMES -- "status/results" -.-> TG
+    HERMES -. "status/results" .-> TG
 ```
 
 Two things worth calling out immediately, because they trip people up:
@@ -271,7 +271,10 @@ flowchart TB
     ARGOCD -- "syncs" --> DEPLOY
     ARGOCD -- "syncs" --> SVC
     ARGOCD -- "syncs" --> SEC
-    ARGOCD -- "syncs" --> CM1 & CM2 & CM3 & CM4
+    ARGOCD -- "syncs" --> CM1
+    ARGOCD -- "syncs" --> CM2
+    ARGOCD -- "syncs" --> CM3
+    ARGOCD -- "syncs" --> CM4
     DEPLOY --> PVC2
     DEPLOY --> SVC
 ```
