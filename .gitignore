@@ -5,6 +5,7 @@ node_modules/
 public/
 quartz/.quartz-cache/
 tsconfig.tsbuildinfo
+quartz/static/most-read.json
 
 # Env / secrets
 .env

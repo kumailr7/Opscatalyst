@@ -9,7 +9,7 @@ export const sharedPageComponents: SharedLayout = {
     Component.Darkmode(),
     Component.AuroraBackground(),
   ],
-  afterBody: [],
+  afterBody: [Component.Comments()],
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/kumailr7/Devops-Dojo"
@@ -30,6 +30,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.DesktopOnly(Component.RecentNotes({ linkToMore: "tags/" , limit: 3, showTags: false })),
+    Component.DesktopOnly(Component.MostRead()),
     Component.DesktopOnly(
       Component.Explorer({
         sortFn: (a, b) => {

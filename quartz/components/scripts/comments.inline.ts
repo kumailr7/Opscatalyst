@@ -16,6 +16,9 @@ document.addEventListener("themechange", (e) => {
 
 
 document.addEventListener("DOMContentLoaded", () => {
+  // only pages that actually rendered the Comments component have this script tag
+  if (!document.querySelector('script[src="https://giscus.app/client.js"]')) { return }
+
   const userPref = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"
   const currentTheme = localStorage.getItem("theme") ?? userPref
   if (currentTheme === "dark") {return} // default is dark theme
@@ -37,8 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Create a new script element with the updated data-theme attribute
   const newScript = document.createElement('script');
   newScript.src = 'https://giscus.app/client.js';
-  newScript.setAttribute('data-repo', 'kumailr7/Opscatalyst');
-  newScript.setAttribute('data-repo-id', 'R_kgDOMl4JxQ"');
+  newScript.setAttribute('data-repo', 'kumailr7/Devops-Dojo');
+  newScript.setAttribute('data-repo-id', 'R_kgDOMl4JxQ');
   newScript.setAttribute('data-category', 'General');
   newScript.setAttribute('data-category-id', 'DIC_kwDOMl4Jxc4Ch08m');
   newScript.setAttribute('data-mapping', 'pathname');

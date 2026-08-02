@@ -24,6 +24,7 @@ import Author from "./Author"
 import NavBar from "./NavBar"
 import BentoHome from "./BentoHome"
 import AuroraBackground from "./AuroraBackground"
+import MostRead from "./MostRead"
 
 export {
   ArticleTitle,
@@ -52,4 +53,5 @@ export {
   NavBar,
   BentoHome,
   AuroraBackground,
+  MostRead,
 }
