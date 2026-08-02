@@ -11,7 +11,11 @@ const config: QuartzConfig = {
     pageTitle: "DEVOPS-DOJO",
     enableSPA: false,
     enablePopovers: true,
-    analytics: null,
+    analytics: {
+      provider: "matomo",
+      host: "https://analytics.devops-dojo.ninja",
+      siteId: "1",
+    },
     baseUrl: "devops-dojo.ninja",
     ignorePatterns: ["private", "Templates", ".obsidian", "Personal", "Archive", "Omnivore", "**/*.excalidraw.md", "rawNotes"],
     defaultDateType: "modified",

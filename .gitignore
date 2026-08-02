@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build output
+public/
+quartz/.quartz-cache/
+tsconfig.tsbuildinfo
+
+# Env / secrets
+.env
+.env.local
+
+# OS / editor
+.DS_Store
+*.swp
+
+# Logs
+*.log
+npm-debug.log*

@@ -17,32 +17,32 @@ description: My Second Brain for Devops related stuff. Zero fluff, short and swe
 > 
 > Step by step, embrace great challenges. Advance with determination, diligence brings rewards.
 
-Please feel free to [provide feedback](https://github.com/kumailr7/Opscatalyst/issues) regarding the accuracy of the notes, etc.
+Please feel free to [provide feedback](https://github.com/kumailr7/Devops-Dojo/issues) regarding the accuracy of the notes, etc.
 
 ## 🎓 DevOps Journey
 ---
-- [Docker](https://kumailr7.github.io/Opscatalyst//tags/docker)
-- [Kubernetes](https://kumailr7.github.io/Opscatalyst//tags/Kubernetes)
+- [[tags/docker|Docker]]
+- [[tags/Kubernetes|Kubernetes]]
 
 ## ☁️ Cloud-Native
 ---
-- [Proxy](https://kumailr7.github.io/Opscatalyst//Cloud-Native/Proxy/)
-- [Cilium](https://kumailr7.github.io/Opscatalyst/Cloud-Native/Cilium/)
+- [[Cloud-Native/Proxy/Exploring Envoy Proxy|Proxy]]
+- [[Cloud-Native/Cilium/Kubernetes Debugging with Tetragon|Cilium]]
 
 ## 🖥️ Cloud Computing
 ---
-- [Amazon Web Services](https://kumailr7.github.io/Opscatalyst//tags/aws)
+- [[tags/aws|Amazon Web Services]]
 
 ## 🏭 System Design
 ---
-- [Basis](https://kumailr7.github.io/Opscatalyst//System-Design/)
-- [Basic Proxy](https://kumailr7.github.io/Opscatalyst//System-Design/Proxy/)
-- [Load Balancer](https://kumailr7.github.io/Opscatalyst//System-Design/Load-Balancers/)
-- [Database](https://kumailr7.github.io/Opscatalyst//System-Design/Database/)
-- [Cache](https://kumailr7.github.io/Opscatalyst//System-Design/Cache/)
-- [Compute](https://kumailr7.github.io/Opscatalyst//System-Design/Compute/)
-- [Monitoring](https://kumailr7.github.io/Opscatalyst//System-Design/Monitoring/)
-- [Architecture](https://kumailr7.github.io/Opscatalyst//System-Design/Architectures/)
+- [[System Design/System Design|Basis]]
+- [[System Design/Proxy/Reverse Proxy|Basic Proxy]]
+- [[System Design/Load Balancers/Load Balancer|Load Balancer]]
+- [[AWS/Database/AWS Database|Database]]
+- [[System Design/Cache/Cache Server|Cache]]
+- [[System Design/Compute/Compute Server|Compute]]
+- [[System Design/Monitoring/Monitoring|Monitoring]]
+- [[System Design/Architectures/Event-Driven Architecture|Architecture]]
 
 
 

@@ -76,7 +76,6 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
     componentResources.afterDOMLoaded.push(popoverScript)
     componentResources.css.push(popoverStyle)
   }
-/*
   if (cfg.analytics?.provider === "google") {
     const tagId = cfg.analytics.tagId
     componentResources.afterDOMLoaded.push(`
@@ -96,15 +95,29 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
           page_location: location.href,
         });
       });`)
+  } else if (cfg.analytics?.provider === "matomo") {
+    const matomoHost = cfg.analytics.host
+    const siteId = cfg.analytics.siteId
+    componentResources.afterDOMLoaded.push(`
+      if (location.hostname === "${cfg.baseUrl}") {
+        window._paq = window._paq || []
+        _paq.push(["disableCookies"])
+        _paq.push(["trackPageView"])
+        _paq.push(["enableLinkTracking"])
+        _paq.push(["setTrackerUrl", "${matomoHost}/matomo.php"])
+        _paq.push(["setSiteId", "${siteId}"])
 
-      // Add in another 1 - umami cloud
-      componentResources.afterDOMLoaded.push(`
-      const umamiScript = document.createElement("script")
-      umamiScript.src = "https://analytics.umami.is/script.js"
-      umamiScript.setAttribute("data-website-id", "5cc5e1c4-8202-4eed-b059-f4867a8f7f0b")
-      umamiScript.async = true
-  
-      document.head.appendChild(umamiScript)
+        const matomoScript = document.createElement("script")
+        matomoScript.src = "${matomoHost}/matomo.js"
+        matomoScript.async = true
+        document.head.appendChild(matomoScript)
+
+        document.addEventListener("nav", () => {
+          _paq.push(["setCustomUrl", location.href])
+          _paq.push(["setDocumentTitle", document.title])
+          _paq.push(["trackPageView"])
+        })
+      }
     `)
   } else if (cfg.analytics?.provider === "plausible") {
     const plausibleHost = cfg.analytics.host ?? "https://plausible.io"
@@ -163,7 +176,7 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
       document.head.appendChild(cabinScript)
     `)
   }
-*/
+
   if (cfg.enableSPA) {
     componentResources.afterDOMLoaded.push(spaRouterScript)
   } else {

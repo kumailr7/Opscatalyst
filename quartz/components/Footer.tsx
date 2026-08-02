@@ -29,7 +29,6 @@ export default ((opts?: Options) => {
 
           {/* Center: social links */}
           <div class="at-footer-links">
-            <a href="https://twitter.com/kumailr7" class="at-footer-link" target="_blank" rel="noopener noreferrer">Twitter</a>
             <a href={githubUrl} class="at-footer-link" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a href="https://www.linkedin.com/in/kumail-rizvi/" class="at-footer-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             <a href="/index.xml" class="at-footer-link">RSS</a>
