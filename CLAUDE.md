@@ -159,6 +159,7 @@ npx vercel --prod
 | `IAC/` | `Terraform`, `CDK`, `IaC` |
 | `Security/` | `Security`, `docker` |
 | `System Design/` | `System Design` |
+| `AI/` | `AI`, `Agents`, `Claude`, `Homelab` |
 
 ---
 
