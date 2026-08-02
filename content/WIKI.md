@@ -1,6 +1,6 @@
-# 🧠 OpsCatalyst Knowledge Index
+# 🧠 DevOps-Dojo Knowledge Index
 
-This is the central index for the OpsCatalyst Knowledge Engine. It tracks core concepts, entities, and sources to ensure the vault remains self-organizing and comprehensive.
+A quick map of what's in this vault, grouped by topic and by the ideas that keep showing up across posts.
 
 ## 🗺️ Map of Content
 - [[System Design]]
@@ -12,20 +12,21 @@ This is the central index for the OpsCatalyst Knowledge Engine. It tracks core c
 - [[IAC]]
 
 ## 🧩 Core Concepts
-*Concepts that define the architectural patterns and theories used in this vault.*
-- (Empty - Agent to populate)
+Recurring architectural patterns and theory that show up across multiple posts, not tied to one vendor.
+- [[System Design/System Design|System Design Fundamentals]]
+- [[System Design/Architectures/Event-Driven Architecture|Event-Driven Architecture]]
+- [[System Design/Architectures/Hub and Spoke Architecture|Hub and Spoke Architecture]]
+- [[System Design/Architectures/Micro-servercies Architecture|Microservices Architecture]]
+- [[Security/DevSecOps|DevSecOps]]
+- [[Security/Terminologies/Shift-left Security|Shift-Left Security]]
+- [[Security/Common Security Attacks|Common Security Attacks]]
 
 ## 🏢 Entities
-*Specific tools, services, or vendors.*
+Specific tools, services, or vendors covered here.
 - [[AWS]]
 - [[Kubernetes]]
 - [[Vercel]]
 - [[Grafana]]
 
 ## 📚 Sources
-*External documentation or courses providing the foundation for this knowledge.*
-- (Empty - Agent to populate)
-
-## 🛠️ Maintenance Log
-- [ ] Initial WIKI setup: 2026-04-20
-- [ ] First knowledge lint: Pending
+Individual posts cite their own references in the frontmatter (`References:`) rather than in one combined list here — check the bottom of a post for the docs/RFCs it's based on.
