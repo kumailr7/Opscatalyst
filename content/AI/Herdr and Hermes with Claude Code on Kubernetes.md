@@ -23,43 +23,40 @@ description: How I wired Telegram, Herdr, Hermes, Claude Code, Notion, and a sel
 ## Abstract
 ---
 
-I wanted to be able to text a coding task to something from my phone, close the app, and come back later to find it either done or a clear explanation of what it's blocked on — without keeping a laptop open or a terminal session alive. That's the whole motivation behind this stack: **Herdr** (persistent agent sessions), **Hermes** (the Telegram-facing gateway), **Claude Code** (the actual coding agent), **Notion** (the engineering ticket board the agent keeps updated), and **AgentGateway** (a self-hosted AI gateway fronting Ollama and OpenRouter for Hermes' own reasoning model). All of it runs as one pod in a `hermes` namespace on my homelab Kubernetes cluster, deployed via ArgoCD.
+I wanted to text a coding task to my phone, close the app, and come back later to find it either done or blocked with a clear reason why — no laptop staying open, no terminal session I have to babysit. So I put together a small stack for it: Herdr keeps agent sessions alive in the background, Hermes is what actually talks to Telegram, Claude Code does the real coding work, a Notion board tracks what's in flight, and a self-hosted AgentGateway handles the model calls Hermes makes on its own behalf. All of it runs as one pod in a `hermes` namespace on my homelab cluster, deployed through ArgoCD like everything else there.
 
-This post is a full teardown of that pipeline — what each piece actually does, how the pod is put together, and what happens end-to-end when I send a message.
+Here's how it actually works, piece by piece.
 
 ## The Problem
 ---
 
-Coding agents are good at long, unattended tasks — but most of them assume you're sitting at a terminal. If you close the laptop, the session dies. If you want to kick off a task from your phone, there's usually no good entry point that isn't "open a remote desktop session."
+Coding agents are good at long, unattended work, but almost all of them assume you're sitting at a terminal. Close the laptop and the session's gone. And if you want to kick something off from your phone, there's usually no good way in that isn't "remote into a desktop and open a terminal there."
 
-I wanted three things:
-1. **A phone-first entry point** — Telegram, since I already live in it.
-2. **Sessions that survive me disconnecting** — closing the Telegram app shouldn't kill the agent's work.
-3. **A source of truth for what's in flight** — not just chat history, but an actual ticket board I can glance at.
+What I actually wanted was pretty simple: send a task from Telegram, since that's where I already am. Sessions that don't die just because I disconnected. And somewhere to actually check what's in flight, rather than scrolling back through a chat thread trying to remember what I asked for.
 
 ## Architecture
 ---
 
 ![[herdr-hermes-pipeline.png]]
 
-At the center of this is a single Kubernetes Deployment (`hermes`, in the `hermes` namespace) running **two containers that share a persistent volume**:
+At the center of this is a single Kubernetes Deployment (`hermes`, in the `hermes` namespace) running two containers that share a persistent volume:
 
 ![[hermes-pipeline.png]]
 
-Two things worth calling out immediately, because they trip people up:
+Two things here are easy to miss if you're skimming the diagram:
 
 > [!note] Two different model paths
-> Hermes' own "brain" — the reasoning it does to decide what to do with an incoming Telegram message — is a small model (`minimax/minimax-m3`) routed through my self-hosted **AgentGateway**. The actual *coding work*, once Hermes hands it off to Claude Code via Herdr, goes straight to Anthropic's API using a Claude Code OAuth token. These are two separate model calls with two separate purposes — Hermes deciding "what should happen" versus Claude Code actually doing it.
+> Hermes has its own "brain" for deciding what to do with an incoming Telegram message, and it's a small model (`minimax/minimax-m3`) routed through my self-hosted AgentGateway. The actual coding work is a separate thing entirely — once Hermes hands it off to Claude Code via Herdr, that goes straight to Anthropic's API using a Claude Code OAuth token. So there are two model calls happening for one task, and they're doing different jobs: Hermes figuring out what should happen, Claude Code actually doing it.
 
 > [!note] `strategy: Recreate`, not `RollingUpdate`
-> The Deployment is pinned to `replicas: 1` and `strategy: Recreate`. Herdr sessions are stateful PTYs living on a single pod — running two replicas would mean two independent session stores, and a rolling update would briefly run old and new pods side by side. `Recreate` guarantees the old pod is fully gone before the new one starts, so there's never a split-brain session state.
+> The Deployment is pinned to `replicas: 1` with `strategy: Recreate`. Herdr sessions are stateful PTYs living on a single pod, so running two replicas would mean two independent session stores, and a rolling update would briefly run old and new pods side by side. `Recreate` just makes sure the old pod is fully gone before the new one starts, so there's never a split-brain session state.
 
 ## The Components
 ---
 
 ### Herdr — persistent sessions for coding agents
 
-[Herdr](https://herdr.dev) is the piece that solves "the agent's work shouldn't die when I disconnect." It's a small server (`herdr server`, running as the `herdr-server` sidecar container) that manages long-lived terminal sessions — conceptually similar to `tmux`, but exposed over a socket API instead of a raw PTY, and specifically built with coding agents in mind.
+[Herdr](https://herdr.dev) is the piece that solves "the agent's work shouldn't die when I disconnect." It's a small server (`herdr server`, running as the `herdr-server` sidecar container) that manages long-lived terminal sessions, conceptually similar to `tmux`, but exposed over a socket API instead of a raw PTY and built specifically with coding agents in mind.
 
 The instructions baked into this pod's `AGENTS.md` describe it plainly:
 
@@ -70,13 +67,13 @@ work (e.g. Claude Code, OpenCode) that should keep running in the
 background and survive you disconnecting or this agent restarting.
 ```
 
-Key commands the agent has available:
+The commands the agent actually has available:
 - `herdr session attach <name>` — attach to (or create) a named persistent session
 - `herdr pane <subcommand>` — spawn a pane, send input, read output over the socket API, no interactive terminal needed
 - `herdr agent <subcommand>` — agent/terminal helpers
 - `herdr status` — client/server status
 
-Its config (`/opt/data/herdr/config.toml`) is deliberately minimal:
+Its config (`/opt/data/herdr/config.toml`) is about as minimal as it gets:
 
 ```toml
 [session]
@@ -86,7 +83,7 @@ resume_agents_on_restore = true
 pane_history = true
 ```
 
-Both settings matter for the "survives restarts" guarantee: `resume_agents_on_restore` reattaches running agent sessions after the server restarts, and `pane_history` keeps scrollback across restarts so context isn't lost.
+Both settings are doing real work for the "survives restarts" claim: `resume_agents_on_restore` reattaches running agent sessions after the server comes back up, and `pane_history` keeps scrollback across restarts so context doesn't just vanish.
 
 ### Hermes — the Telegram gateway
 
@@ -96,17 +93,17 @@ Environment-wise, it's wired up with:
 
 | Variable | Purpose |
 |---|---|
-| `TELEGRAM_BOT_TOKEN` / `TELEGRAM_ALLOWED_USERS` | Bot auth + an allowlist, so only I can drive it |
+| `TELEGRAM_BOT_TOKEN` / `TELEGRAM_ALLOWED_USERS` | Bot auth plus an allowlist, so only I can drive it |
 | `NOTION_API_KEY` | Read/write access to the ticket board |
 | `CLAUDE_CODE_OAUTH_TOKEN` | Shared with `herdr-server` so Claude Code can authenticate |
 | `HERMES_DASHBOARD*` / `DASHBOARD_USERNAME` / `DASHBOARD_PASSWORD` | Web dashboard for checking in on sessions outside Telegram |
 | `API_SERVER_KEY` | Auth for Hermes' own HTTP API |
 
-All secrets live in a single `hermes-secrets` Kubernetes Secret, referenced via `secretKeyRef` rather than baked into the image or configmap.
+All of it lives in a single `hermes-secrets` Kubernetes Secret, pulled in via `secretKeyRef` rather than baked into the image or a configmap.
 
 ### AgentGateway — a self-hosted AI gateway
 
-Separately, in an `agentgateway-system` namespace, I run [AgentGateway](https://agentgateway.dev) — an actual [Gateway API](https://gateway-api.sigs.k8s.io/) implementation purpose-built for AI traffic. It's not part of the Hermes pod at all; it's shared infrastructure that Hermes' own reasoning model happens to route through:
+Separately, in an `agentgateway-system` namespace, I run [AgentGateway](https://agentgateway.dev) — an actual [Gateway API](https://gateway-api.sigs.k8s.io/) implementation built for AI traffic. It's not part of the Hermes pod at all. It's shared infrastructure that Hermes' own reasoning model just happens to route through:
 
 ```mermaid
 flowchart LR
@@ -124,7 +121,7 @@ flowchart LR
     CTRL -.manages.-> GW
 ```
 
-Hermes' own `config.yaml` points at it directly:
+Hermes' own `config.yaml` just points at it directly:
 
 ```yaml
 model:
@@ -134,13 +131,13 @@ model:
   api_key: "none"
 ```
 
-The gateway fronts both a local Ollama instance and OpenRouter, so which backend actually serves a given model is a routing decision at the gateway, not something Hermes has to know about. `api_key: "none"` because auth happens at the gateway boundary within the cluster, not per-caller.
+The gateway fronts both a local Ollama instance and OpenRouter, so which backend actually serves a given model is a routing decision made at the gateway, not something Hermes has to think about. And `api_key: "none"` is correct, not a mistake — auth happens at the gateway boundary inside the cluster, not per caller.
 
 ### The 269-agent roster
 
-Bundled in via an init container is [agency-agents](https://github.com/msitarzewski/agency-agents) — an open-source collection of specialist agent personas organized by department: engineering, marketing, sales, finance, product, design, support, security, testing, and a handful of more niche ones (GIS, healthcare, game development, spatial computing). Counting the actual persona files on disk across those division directories comes out to **269** — which is exactly the number in the diagram above.
+Bundled in through an init container is [agency-agents](https://github.com/msitarzewski/agency-agents), an open-source collection of specialist agent personas organized by department — engineering, marketing, sales, finance, product, design, support, security, testing, plus a handful of more niche ones like GIS, healthcare, game development, and spatial computing. I actually counted the persona files on disk across those division directories out of curiosity, and it comes out to 269. Which is exactly the number in the diagram above — nice to see the two line up.
 
-Rather than loading all 269 into context, there's a small router plugin (`agency-agents-router`) that exposes four tools instead:
+Instead of loading all 269 into context at once, there's a small router plugin (`agency-agents-router`) that exposes four tools:
 
 ```yaml
 name: agency-agents-router
@@ -151,22 +148,22 @@ provides_tools:
   - agency_agents_delegate
 ```
 
-This is the difference between "search/inspect/load/delegate on demand" and "stuff 269 personas into every prompt." The agent searches for a relevant persona, inspects it if it looks right, loads it, and can delegate a subtask to it — keeping the base context small regardless of roster size.
+That's the whole trick, really: search, inspect, load, delegate on demand, instead of stuffing 269 personas into every prompt whether you need them or not. The agent searches for something relevant, inspects it if it looks right, loads it, and can delegate a subtask to it. Context stays small no matter how big the roster gets.
 
 ### Notion — the "Agents Kanban" board
 
-The last piece is a Notion database that acts as the actual source of truth for engineering work, not just a log of what happened. This is spelled out directly in `AGENTS.md`:
+The last piece is a Notion database acting as the actual source of truth for engineering work, not just a log of what already happened. It's spelled out directly in `AGENTS.md`:
 
 - **Properties**: `Agent` (title — despite the name, this is the task title, not a literal agent name), `Status` (Backlog / Ready / In progress / Blocked / Done), `Priority` (High/Medium/Low), `Notes` (rich text — context, links, progress), `Owner`.
-- **Workflow**: create a ticket *before* starting background work via Herdr, keep the same ticket updated as work progresses (not duplicate tickets), move to `Blocked` with an explanation if it needs my input, and write a final `Notes` summary on `Done`.
-- If I ask "what are you working on," the instruction is to check the board first — not just recall conversation history.
+- **Workflow**: create a ticket before starting background work via Herdr, keep updating the same ticket as work progresses instead of spawning duplicates, move to `Blocked` with an explanation if it needs my input, and leave a final `Notes` summary when it's `Done`.
+- If I ask "what are you working on," the instruction is to check the board first, not just recall whatever's in the conversation.
 
-This matters more than it sounds: chat history is ephemeral and per-thread, but the Kanban board persists and is visible outside of whatever Telegram thread a task started in.
+That last part matters more than it sounds. Chat history is ephemeral and scoped to one thread — the Kanban board isn't, and it's visible whether or not I remember which Telegram thread a task even started in.
 
 ## How the Pod Bootstraps Itself
 ---
 
-One thing that stood out digging into this: the pod does almost all of its own setup via init containers, against a single shared PVC, rather than baking everything into the image. Each step is idempotent (`test -f ... || ...`), so re-running the pod (e.g. after `Recreate`) skips anything already provisioned on the volume:
+One thing that stood out while digging into this: the pod does almost all of its own setup through init containers against a single shared PVC, instead of baking everything into the image. Each step is idempotent (`test -f ... || ...`), so a fresh pod after a `Recreate` just skips anything that's already sitting on the volume:
 
 ```mermaid
 flowchart TD
@@ -185,25 +182,25 @@ ln -sf /opt/data/bin/herdr /usr/local/bin/herdr
 ln -sf /opt/data/npm-global/bin/claude /usr/local/bin/claude
 ```
 
-Everything — the `herdr` binary, the globally-installed `claude` CLI, the cloned `agency-agents` repo, and all session/config state — lives on a single 5Gi PVC (`hermes-data`) mounted at `/opt/data` in both containers. That's what makes "survives pod restarts" actually true: a fresh pod doesn't reinstall from scratch, it just finds everything already there and skips straight to running.
+Everything — the `herdr` binary, the globally-installed `claude` CLI, the cloned `agency-agents` repo, all session and config state — lives on one 5Gi PVC (`hermes-data`) mounted at `/opt/data` in both containers. That's really what makes "survives pod restarts" true in practice: a fresh pod doesn't reinstall anything, it just finds it all already there and gets straight to running.
 
 ## What Actually Happens When I Send a Message
 ---
 
-Putting it all together, here's the real end-to-end flow for a coding task sent from Telegram:
+So here's what actually happens, step by step, for a coding task sent from Telegram:
 
-1. I send a message in Telegram. The bot only responds to IDs in `TELEGRAM_ALLOWED_USERS`.
-2. The `hermes` container picks it up, reasons about it using its own model (routed through AgentGateway → Ollama/OpenRouter), and reads its `AGENTS.md` context — which tells it to use Herdr for anything that should keep running in the background.
-3. Hermes creates or attaches a named Herdr session via the socket API. Herdr runs Claude Code inside that session, authenticated with the shared `CLAUDE_CODE_OAUTH_TOKEN`.
-4. If the task is non-trivial engineering work, a ticket goes onto the Notion "Agents Kanban" board first — `Status: Ready` or `In progress`, with context in `Notes` — before work actually starts.
-5. Claude Code does the work, making model calls straight to the Anthropic API. I can close the Telegram app entirely; the pane keeps running because it's a Herdr session on a persistent volume, not a process tied to my connection.
-6. As work progresses, the same Notion ticket gets updated rather than duplicated. If something needs my input, it moves to `Blocked` with an explanation.
-7. Status and results come back to me via Telegram, and the final ticket gets a `Done` summary in `Notes`.
+1. I send a message. The bot only responds to IDs in `TELEGRAM_ALLOWED_USERS`.
+2. `hermes` picks it up, reasons about it using its own model (routed through AgentGateway to Ollama or OpenRouter, whichever the gateway picks), and reads its `AGENTS.md` context, which tells it to reach for Herdr for anything that should keep running in the background.
+3. Hermes creates or attaches a named Herdr session over the socket API. Herdr runs Claude Code inside that session, authenticated with the shared `CLAUDE_CODE_OAUTH_TOKEN`.
+4. If it's non-trivial engineering work, a ticket goes onto the Notion "Agents Kanban" board first — `Status: Ready` or `In progress`, with context in `Notes` — before any actual work starts.
+5. Claude Code does the work, making model calls straight to the Anthropic API. I can close the Telegram app entirely at this point; the pane keeps running because it's a Herdr session sitting on a persistent volume, not a process tied to my connection.
+6. As things progress, the same Notion ticket gets updated instead of duplicated. If something needs my input, it moves to `Blocked` with an explanation of what's stuck.
+7. Status and results come back to me over Telegram, and the ticket gets a final `Done` summary in `Notes`.
 
 ## How It's Deployed on Kubernetes
 ---
 
-Everything lives in its own `hermes` namespace, and the whole thing is deployed via **ArgoCD**, tracked from my homelab's own GitOps repo:
+Everything lives in its own `hermes` namespace, deployed through ArgoCD and tracked from my homelab's own GitOps repo:
 
 ```
 Application: hermes
@@ -213,18 +210,18 @@ targetRevision: HEAD
 tracking-id: hermes:apps/Deployment:hermes/hermes
 ```
 
-Nothing is `kubectl apply`'d by hand — the Deployment, ConfigMaps, PVC, and Secret references all come from that path in the repo, and ArgoCD reconciles the live cluster state against it. As of writing it's on revision 16 (generation 19), which is a fair number of iterations for something that started as "wire a Telegram bot to a coding agent."
+Nothing here gets `kubectl apply`'d by hand. The Deployment, ConfigMaps, PVC, and Secret references all come from that path in the repo, and ArgoCD reconciles the live cluster state against it. As of writing it's on revision 16 (generation 19) — a fair number of iterations for something that started out as "wire a Telegram bot to a coding agent."
 
 The full object inventory in the namespace:
 
 ![[hermes-k8s-deployment.png]]
 
-A few deployment-level details worth calling out:
+A few things worth pointing out here:
 
-- **Resource requests/limits are asymmetric across the two containers** — `herdr-server` (the session manager, mostly idle) gets `50m`/`128Mi` requested and `300m`/`384Mi` capped; `hermes` (the container actually running the gateway, dashboard, and API server) gets `100m`/`256Mi` requested and `750m`/`768Mi` capped. The gateway does more work, so it gets more room.
-- **`gai.conf` is mounted into `/etc/gai.conf`** in the `hermes` container via a ConfigMap. This is a small but easy-to-miss detail: it's the glibc address-selection config (`getaddrinfo` ordering for IPv4 vs IPv6), and it's common to need a custom one in containers to avoid slow or broken outbound calls when a cluster's IPv6 path is flaky — relevant here since `hermes` is the container making all the outbound calls (Telegram, Notion, AgentGateway).
-- **The `Service` only exposes ClusterIP**, not a LoadBalancer or Ingress — Telegram is a pull-based integration (the bot polls/receives via Telegram's own infrastructure), so there's no need to expose anything to the internet. The dashboard and API ports are only reachable from inside the cluster unless I port-forward to them.
-- Pod scheduling isn't pinned — it landed on `elysium-w2` (one of three worker nodes) this time around, and would just as happily land on another worker if rescheduled, since all its state lives on the PVC rather than the node's local disk.
+- Resource requests and limits are deliberately asymmetric across the two containers. `herdr-server` — the session manager, mostly idle most of the time — gets `50m`/`128Mi` requested and `300m`/`384Mi` capped. `hermes`, which is actually running the gateway, dashboard, and API server, gets `100m`/`256Mi` requested and `750m`/`768Mi` capped. It does more, so it gets more room.
+- `gai.conf` gets mounted into `/etc/gai.conf` on the `hermes` container via a ConfigMap. Small detail, easy to miss: that's the glibc address-selection config, `getaddrinfo` ordering for IPv4 versus IPv6, and it's a common fix when a cluster's IPv6 path is flaky enough to cause slow or broken outbound calls. Relevant here since `hermes` is the container making every outbound call — Telegram, Notion, AgentGateway, all of it.
+- The `Service` only exposes ClusterIP, no LoadBalancer or Ingress. Telegram is a pull-based integration, so there's nothing that needs to be reachable from the internet. The dashboard and API ports only exist inside the cluster unless I port-forward to them myself.
+- Pod scheduling isn't pinned to anything. It landed on `elysium-w2` this time, one of three worker nodes, and it'd land just as happily on a different one if rescheduled, since all its actual state lives on the PVC rather than the node's local disk.
 
-> [!tip] Why this is worth the extra moving parts
-> It would be simpler to just SSH into a box and run Claude Code in a `tmux` session directly. The reason for the extra layers — Herdr's socket API instead of raw PTY, Hermes as a dedicated gateway instead of a bot script, a real Kubernetes Deployment with GitOps instead of a systemd unit — is that each piece is independently replaceable. I can swap Telegram for Slack by only touching Hermes. I can swap Claude Code for another CLI agent by only touching what Herdr spawns. Nothing about the architecture assumes any one of these tools is permanent.
+> [!tip] Why bother with all this
+> It'd be simpler to just SSH into a box and run Claude Code in a `tmux` session. The reason for the extra layers — Herdr's socket API instead of a raw PTY, Hermes as its own gateway instead of a bot script, a real Deployment with GitOps instead of a systemd unit — is that I can swap any one piece out without touching the rest. Telegram for Slack, only touch Hermes. Claude Code for something else, only touch what Herdr spawns. None of it assumes any single tool sticks around forever.
