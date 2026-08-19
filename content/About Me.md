@@ -12,11 +12,13 @@ References:
 description:
 ---
 
-Hey, I'm Kumail — a DevOps Architect with 6+ years of experience designing and running infrastructure across AWS, Azure, and GCP. I've helped organizations and clients with architecture design and cloud solutions, from greenfield builds to untangling systems that grew too fast.
+I'm Kumail. I've been doing DevOps for 6+ years now, mostly architecture and cloud work across AWS, Azure, and GCP — helping teams figure out the right setup, then usually getting pulled in later to fix the parts that grew faster than anyone planned for.
 
-Lately I've been deep in agentic AI — orchestrating multi-agent teams to automate real engineering work — alongside a long-running passion for homelabbing, where I break things on my own hardware before I ever get near production.
+These days I spend a lot of time messing with agentic AI, getting multiple agents to actually work together instead of stepping on each other, and even more time on my homelab, which exists mostly so I can break things on hardware I own before I break them on hardware someone's paying me not to.
 
-This site is my second brain: notes, deep dives, and the occasional war story from things I broke so you don't have to. I'm also the creator of [hub.devops-dojo.ninja](https://hub.devops-dojo.ninja), a platform built to help people learn DevOps and collaborate with each other along the way.
+This site is where I dump notes so I don't have to relearn the same things twice. I also built [hub.devops-dojo.ninja](https://hub.devops-dojo.ninja) — a place for people learning DevOps to figure things out together instead of alone.
+
+Outside of that I spend a fair bit of time helping people directly — DevOps questions, cloud architecture decisions, career guidance, that kind of thing. I run a WhatsApp group of 200+ folks doing the same, mostly just people helping each other get unstuck.
 
 - 💼 [LinkedIn](https://linkedin.com/in/kumail-rizvi)
 - 🚀 [DevOps Dojo Hub](https://hub.devops-dojo.ninja)
