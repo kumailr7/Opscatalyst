@@ -22,6 +22,7 @@ Outside of that I spend a fair bit of time helping people directly — DevOps qu
 
 - 💼 [LinkedIn](https://linkedin.com/in/kumail-rizvi)
 - 🚀 [DevOps Dojo Hub](https://hub.devops-dojo.ninja)
+- 🧰 [[Portfolio|Projects & Portfolio]]
 - 🐛 [Found an issue with a post? Let me know](https://github.com/kumailr7/Devops-Dojo/issues)
 
 [[index|Back to home page]]
