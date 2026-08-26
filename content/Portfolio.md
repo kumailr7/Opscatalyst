@@ -5,23 +5,21 @@ Author Profile:
   - https://linkedin.com/in/kumail-rizvi
 tags:
   - Portfolio
+  - About
 Creation Date: 2026-08-26T00:00:00
 Last Date: 2026-08-26T00:00:00
 drafts: false
 References:
-description: Selected DevOps and cloud architecture work — projects, tools, and outcomes.
+description: Kumail Rizvi — DevOps/cloud architect. Bio, current projects, and stack.
 ---
 
-I'm Kumail — DevOps/cloud architect, 6+ years across AWS, Azure, and GCP. This page is the "what I've built" version of [[About Me]]; that page is the "who I am" version.
+I'm Kumail. I've been doing DevOps for 6+ years now, mostly architecture and cloud work across AWS, Azure, and GCP — helping teams figure out the right setup, then usually getting pulled in later to fix the parts that grew faster than anyone planned for. Currently working as **DevOps Architect @ Codeblaze**.
 
-Currently working as **DevOps Architect @ Codeblaze**.
+These days I spend a lot of time messing with agentic AI, getting multiple agents to actually work together instead of stepping on each other, and even more time on my homelab, which exists mostly so I can break things on hardware I own before I break them on hardware someone's paying me not to.
 
-## Highlights
+This site is where I dump notes so I don't have to relearn the same things twice. I also built [hub.devops-dojo.ninja](https://hub.devops-dojo.ninja) — a place for people learning DevOps to figure things out together instead of alone.
 
-- 6+ years in DevOps and cloud architecture — design, migration, and the fallout when systems outgrow their original setup
-- Built and run [hub.devops-dojo.ninja](https://hub.devops-dojo.ninja), a community platform for people learning DevOps
-- Run a 200+ member WhatsApp group helping engineers with cloud architecture and career questions
-- Write [devops-dojo.ninja](https://devops-dojo.ninja), a technical notes/blog site covering AWS, Kubernetes, IaC, and system design in depth
+Outside of that I spend a fair bit of time helping people directly — DevOps questions, cloud architecture decisions, career guidance, that kind of thing. I run a WhatsApp group of 200+ folks doing the same, mostly just people helping each other get unstuck.
 
 ## Featured Projects
 
@@ -83,5 +81,6 @@ Deep dives on the stuff above live on this site — browse by [[tags/index|tag]]
 
 - 💼 [LinkedIn](https://linkedin.com/in/kumail-rizvi)
 - 🚀 [DevOps Dojo Hub](https://hub.devops-dojo.ninja)
+- 🐛 [Found an issue with a post? Let me know](https://github.com/kumailr7/Devops-Dojo/issues)
 
-[[About Me|More about me]] · [[index|Back to home page]]
+[[index|Back to home page]]

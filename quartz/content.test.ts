@@ -24,7 +24,7 @@ const EXEMPT_FILES = new Set([
   "index.md",
   "Readme.md",
   "WIKI.md",
-  "About Me.md",
+  "Portfolio.md",
   "Chapter.md",
   "Exposing the Repo Insecure.md", // republished external post, no standard frontmatter
 ])

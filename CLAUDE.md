@@ -26,7 +26,7 @@ Author: **Kumail Rizvi** — [linkedin.com/in/kumail-rizvi](https://linkedin.com
 /
 ├── content/               # All blog posts and pages
 │   ├── index.md           # Home page
-│   ├── About Me.md
+│   ├── Portfolio.md
 │   ├── AWS/               # AWS service posts
 │   │   ├── Compute/       # EC2, ECS, Lambda, ASG, Load Balancer
 │   │   ├── Database/

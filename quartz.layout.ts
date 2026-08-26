@@ -37,7 +37,7 @@ export const defaultContentPageLayout: PageLayout = {
           if ((!a.file && !b.file) || (a.file && b.file)) {
             return a.displayName.localeCompare(b.displayName)
           }
-          // folders first, loose files (About Me, Readme) last
+          // folders first, loose files (Portfolio, Readme) last
           if (a.file && !b.file) return 1
           return -1
         },
