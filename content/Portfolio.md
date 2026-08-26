@@ -17,7 +17,7 @@ description: Kumail Rizvi — DevOps/cloud architect. Bio, current projects, and
 
 I'm Kumail. I've been doing DevOps for 6+ years now, mostly architecture and cloud work across AWS, Azure, and GCP — helping teams figure out the right setup, then usually getting pulled in later to fix the parts that grew faster than anyone planned for. Currently working as **DevOps Architect @ Codeblaze**.
 
-These days I spend a lot of time messing with agentic AI, getting multiple agents to actually work together instead of stepping on each other, and even more time on my homelab, which exists mostly so I can break things on hardware I own before I break them on hardware someone's paying me not to.
+These days I spend a lot of time messing with agentic AI, getting multiple agents to actually work together instead of stepping on each other, and even more time on my homelab, which exists mostly so I can break things on hardware I own before I break them on hardware someone's paying me not to. I love homelabbing — these days I'm building one out, and it's genuinely just fun.
 
 This site is where I dump notes so I don't have to relearn the same things twice. I also built [hub.devops-dojo.ninja](https://hub.devops-dojo.ninja) — a place for people learning DevOps to figure things out together instead of alone.
 
