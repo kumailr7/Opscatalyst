@@ -13,6 +13,8 @@ References:
 description: Kumail Rizvi — DevOps/cloud architect. Bio, current projects, and stack.
 ---
 
+<img src="./assets/kumail-rizvi.png" alt="Kumail Rizvi" style="width:140px;border-radius:8px;display:block;margin:0 0 1rem 0;" />
+
 I'm Kumail. I've been doing DevOps for 6+ years now, mostly architecture and cloud work across AWS, Azure, and GCP — helping teams figure out the right setup, then usually getting pulled in later to fix the parts that grew faster than anyone planned for. Currently working as **DevOps Architect @ Codeblaze**.
 
 These days I spend a lot of time messing with agentic AI, getting multiple agents to actually work together instead of stepping on each other, and even more time on my homelab, which exists mostly so I can break things on hardware I own before I break them on hardware someone's paying me not to.
